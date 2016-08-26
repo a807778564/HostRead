@@ -1,0 +1,40 @@
+//
+//  HostRead_Prefix.pch
+//  HostRead
+//
+//  Created by huangrensheng on 16/8/22.
+//  Copyright © 2016年 kawaii. All rights reserved.
+//
+
+#ifndef HostRead_Prefix_pch
+#define HostRead_Prefix_pch
+
+#define documentPath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+
+#import "Masonry.h"
+#import "FMDB.h"
+
+#import "UIColor+ColorWithHex.h"
+#import "UIImage+Color.h"
+
+
+#import "HRReadTool.h"
+#import "HRDBHelper.h"
+
+
+#define mainColor [UIColor colorWithHexa:@"#00bb9c"]
+
+
+#define RGBA(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+#define ScreenWidth [[UIScreen mainScreen] bounds].size.width
+#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
+
+#define kTopMargin 16
+#define kBottonMargin 16
+#define kLeftMargin 16
+#define kRightMargin 16
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* HostRead_Prefix_pch */
