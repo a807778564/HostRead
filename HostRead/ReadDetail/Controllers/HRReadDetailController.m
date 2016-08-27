@@ -53,6 +53,8 @@ typedef NS_ENUM(NSInteger){
     self.view.backgroundColor = RGBA(159,223,176,1);
     self.helper = [[HRDBHelper alloc] init];
     
+    self.navigationController.navigationBar.hidden = YES;
+    
     self.readDetailOne = [[HRReadDetailView alloc] init];
     self.readDetailOne.tag = 1;
     self.readDetailOne.delegate = self;
@@ -287,9 +289,7 @@ typedef NS_ENUM(NSInteger){
 - (void)HRReadDetailViewDidSetting:(HReeadSettingType)settingType{
     if (settingType == HReeadSettingBack) {
         [self.helper updateSliderWitnTxtId:self.txtModel.txtId readPage:self.redPage readChapter:self.redChapterCount];
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-        }];
+        [self.navigationController popViewControllerAnimated:YES];
     }else if(settingType == HReeadSettingList){
         HRChapterListController *cha = [[HRChapterListController alloc] init];
         cha.allChapters = [self.helper selectAllChapter:self.txtModel.txtId];

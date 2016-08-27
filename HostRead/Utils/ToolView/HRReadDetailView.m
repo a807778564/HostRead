@@ -139,7 +139,9 @@
     [view addSubview:back];
     [back mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(view.mas_centerY);
-        make.leading.equalTo(view.mas_leading).offset(16);
+        make.leading.equalTo(view.mas_leading);
+        make.width.offset(44);
+        make.height.offset(44);
     }];
     
     UIButton *list = [UIButton buttonWithType:UIButtonTypeCustom];

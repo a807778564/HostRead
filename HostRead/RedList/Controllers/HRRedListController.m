@@ -143,10 +143,9 @@
         
 //        HRTxtModel *model =  [[HRTxtModel alloc] getTxtModelWith:url];
         HRReadDetailController *detail = [[HRReadDetailController alloc] init];
+        detail.hidesBottomBarWhenPushed = YES;
         detail.txtModel  = model;
-        [self presentViewController:detail animated:YES completion:^{
-            
-        }];
+        [self.navigationController pushViewController:detail animated:YES];
 //        NSLog(@"aaaaaaa");
         
 //        NSString *plistPath = [NSString stringWithFormat:@"%@/%@",self.floderPath,self.fileList[indexPath.row-self.floderList.count]];
