@@ -17,9 +17,12 @@
 
 - (HRTxtModel *)selectReadTxt:(NSString *)txtName;
 
+- (void)updateSliderWitnTxtId:(NSString *)txtId readPage:(NSInteger)page readChapter:(NSInteger)chapter;
+
 #pragma mark
 - (void)insertChapters:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId;
 
 - (HRTxtChapterModel *)selectChapterModelWithChapterCount:(NSInteger)chapterCount txtId:(NSString *)txtId;
 
+- (NSMutableArray *)selectAllChapter:(NSString *)txtId;
 @end

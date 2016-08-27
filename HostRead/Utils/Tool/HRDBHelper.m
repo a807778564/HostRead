@@ -108,6 +108,14 @@
 }
 
 
+- (void)updateSliderWitnTxtId:(NSString *)txtId readPage:(NSInteger)page readChapter:(NSInteger)chapter{
+    FMDatabase *db =[self getBase];
+    if ([db open]) {
+       [db executeUpdate:@"update table_txt set redPage=?, readChapter=? where txtId=?",[NSNumber numberWithInteger:page],[NSNumber numberWithInteger:chapter],txtId];
+    }
+    [db close];
+}
+
 #pragma mark table_chapters操作
 - (void)insertChapters:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId{
     FMDatabase *db = [self getBase];
@@ -133,6 +141,24 @@
     }
     [db close];
     return chapter;
+}
+
+- (NSMutableArray *)selectAllChapter:(NSString *)txtId{
+    NSMutableArray *titleArray = [[NSMutableArray alloc] init];
+    FMResultSet *result = [[FMResultSet alloc] init];
+    FMDatabase *db = [self getBase];
+    if ([db open]) {
+        result = [db executeQuery:@"select chapterid,title from table_chapters where txtId=?",txtId];
+        while ([result next]) {
+            NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+            [dic setValue:[result stringForColumn:@"chapterid"] forKey:@"chapterid"];
+            [dic setValue:[result stringForColumn:@"title"] forKey:@"title"];
+            [titleArray addObject:dic];
+        }
+    }
+    [db close];
+    
+    return titleArray;
 }
 
 @end

@@ -22,6 +22,7 @@
 		2C453E131D6D72980061B535 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C453E121D6D72980061B535 /* CoreText.framework */; };
 		2C453E191D6D7BE20061B535 /* HRReadDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C453E181D6D7BE20061B535 /* HRReadDetailController.m */; };
 		2C453E1C1D6D8C870061B535 /* HRDidReadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C453E1B1D6D8C870061B535 /* HRDidReadModel.m */; };
+		2C47E0ED1D71898600329CF2 /* HRChapterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C47E0EC1D71898600329CF2 /* HRChapterListController.m */; };
 		2C6C9DA91D702D4A00D9EB00 /* HRBatteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */; };
 		2C6C9DAC1D7034F400D9EB00 /* HRReadDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */; };
 		2C76B69A1D6ADB4E0052CCF8 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76B6971D6ADB4E0052CCF8 /* UIImage+Color.m */; };
@@ -80,6 +81,8 @@
 		2C453E181D6D7BE20061B535 /* HRReadDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRReadDetailController.m; sourceTree = "<group>"; };
 		2C453E1A1D6D8C870061B535 /* HRDidReadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRDidReadModel.h; sourceTree = "<group>"; };
 		2C453E1B1D6D8C870061B535 /* HRDidReadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRDidReadModel.m; sourceTree = "<group>"; };
+		2C47E0EB1D71898600329CF2 /* HRChapterListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRChapterListController.h; sourceTree = "<group>"; };
+		2C47E0EC1D71898600329CF2 /* HRChapterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRChapterListController.m; sourceTree = "<group>"; };
 		2C6C9DA71D702D4A00D9EB00 /* HRBatteryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBatteryView.h; sourceTree = "<group>"; };
 		2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBatteryView.m; sourceTree = "<group>"; };
 		2C6C9DAA1D7034F400D9EB00 /* HRReadDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRReadDetailView.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 			children = (
 				2C453E171D6D7BE20061B535 /* HRReadDetailController.h */,
 				2C453E181D6D7BE20061B535 /* HRReadDetailController.m */,
+				2C47E0EB1D71898600329CF2 /* HRChapterListController.h */,
+				2C47E0EC1D71898600329CF2 /* HRChapterListController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -506,6 +511,7 @@
 				2C76B69B1D6ADB4E0052CCF8 /* UIImage+ImageEffects.m in Sources */,
 				2C76B6A11D6AE7500052CCF8 /* HRRecentController.m in Sources */,
 				2C41AAD81D6EBBE7007CE67E /* FMDatabasePool.m in Sources */,
+				2C47E0ED1D71898600329CF2 /* HRChapterListController.m in Sources */,
 				2C41AAD91D6EBBE7007CE67E /* FMDatabaseQueue.m in Sources */,
 				2C6C9DAC1D7034F400D9EB00 /* HRReadDetailView.m in Sources */,
 				2C76B6CB1D6AFE410052CCF8 /* HRReadListCell.m in Sources */,

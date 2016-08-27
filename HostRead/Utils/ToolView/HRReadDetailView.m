@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) UILabel *timeLabel;
 
+@property (nonatomic, strong) UIView *headerView;
+
 @end
 
 @implementation HRReadDetailView
@@ -28,8 +30,18 @@
 - (instancetype)init{
     if ([super init]) {
         
+        self.backgroundColor = RGBA(159,223,176,1);
+        
+        self.headerView = [self getHeaderInfoView];
+        [self addSubview:self.headerView];
+        [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mas_top).offset(-44);
+            make.height.offset(44);
+            make.leading.and.trailing.equalTo(self);
+        }];
+        
         self.titleTxt = [[UILabel alloc] init];
-        self.titleTxt.text = @"aaaaad大家三大叔";
+        self.titleTxt.text = @"";
         self.titleTxt.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.titleTxt];
         [self.titleTxt mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,6 +90,16 @@
             make.trailing.equalTo(self.contect.mas_trailing);
             make.centerY.equalTo(self.batter.mas_centerY);
         }];
+        
+        UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [settingBtn addTarget:self action:@selector(settingOnClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:settingBtn];
+        [settingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.offset(80);
+            make.height.offset(80);
+            make.centerY.equalTo(self.mas_centerY);
+            make.centerX.equalTo(self.mas_centerX);
+        }];
     }
     return self;
 }
@@ -90,6 +112,60 @@
 //    self.batter
 }
 
+- (void)settingOnClick:(UIButton *)btn{
+    btn.selected = !btn.selected;
+    [self bringSubviewToFront:self.headerView];
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.headerView mas_updateConstraints:^(MASConstraintMaker *make) {
+            if (btn.selected) {
+                make.top.equalTo(self.mas_top);
+            }else{
+                make.top.equalTo(self.mas_top).offset(-44);
+            }
+        }];
+        [self layoutIfNeeded];
+    }];
+}
+
+- (UIView *)getHeaderInfoView{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = mainColor;
+    
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
+    back.tag = HReeadSettingBack;
+    [back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
+    [back addTarget:self action:@selector(selfBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:back];
+    [back mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view.mas_centerY);
+        make.leading.equalTo(view.mas_leading).offset(16);
+    }];
+    
+    UIButton *list = [UIButton buttonWithType:UIButtonTypeCustom];
+    list.tag = HReeadSettingList;
+    [list addTarget:self action:@selector(selfBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [list setTitle:@"目录" forState:UIControlStateNormal];
+    [list.titleLabel setFont:[UIFont boldSystemFontOfSize:15]];
+    [list setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [view addSubview:list];
+    [list mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view.mas_centerY);
+        make.trailing.equalTo(view.mas_trailing).offset(-10);
+        make.width.offset(44);
+        make.height.offset(44);
+    }];
+    
+    return view;
+}
+
+- (void)selfBtnOnClick:(UIButton *)btn{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(HRReadDetailViewDidSetting:)]) {
+        [self.delegate HRReadDetailViewDidSetting:btn.tag];
+    }
+}
+
+//当前系统时间
 -(NSString *)currentTimeString{
     NSArray *infoArray = [[[[UIApplication sharedApplication] valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
     for (id info in infoArray)
