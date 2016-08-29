@@ -57,7 +57,7 @@
 -(void)separateChapter:(NSMutableArray **)chapters content:(NSString *)content txtName:(NSString *)txtName
 {
     [*chapters removeAllObjects];
-    NSString *parten = @"第[0-9一二三四五六七八九十百千]*[章回].*";
+    NSString *parten = @"第[0-9一二三四五六七八九十百千]*[章卷回].*";
     NSError* error = NULL;
     NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:NSRegularExpressionCaseInsensitive error:&error];
     
@@ -67,24 +67,27 @@
     {
         __block NSRange lastRange = NSMakeRange(0, 0);
         [match enumerateObjectsUsingBlock:^(NSTextCheckingResult *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            NSLog(@"index %ld",idx);
+            
             NSRange range = [obj range];
             NSInteger local = range.location;
             if (idx == 0) {
                 NSUInteger len = local;
-                [self.helper insertChapters:@"开始" content:[content substringWithRange:NSMakeRange(0, len)] txtId:[NSString stringWithFormat:@"%ld",txtId]];
+                [self.helper insertChaptersIdx:idx title:@"开始" content:[content substringWithRange:NSMakeRange(0, len)] txtId:[NSString stringWithFormat:@"%ld",txtId]];
             }
             if (idx > 0 ) {
                 NSUInteger len = local-lastRange.location;
-                [self.helper insertChapters:[content substringWithRange:lastRange] content:[content substringWithRange:NSMakeRange(lastRange.location, len)] txtId:[NSString stringWithFormat:@"%ld",txtId]];
+                [self.helper insertChaptersIdx:idx title:[content substringWithRange:lastRange] content:[content substringWithRange:NSMakeRange(lastRange.location, len)] txtId:[NSString stringWithFormat:@"%ld",txtId]];
             }
             if (idx == match.count-1) {
-                [self.helper insertChapters:[content substringWithRange:range] content:[content substringWithRange:NSMakeRange(local, content.length-local)] txtId:[NSString stringWithFormat:@"%ld",txtId]];
+                [self.helper insertChaptersIdx:idx title:[content substringWithRange:range] content:[content substringWithRange:NSMakeRange(local, content.length-local)] txtId:[NSString stringWithFormat:@"%ld",txtId]];
             }
             lastRange = range;
         }];
     }
     else{
-        [self.helper insertChapters:@"" content:content txtId:[NSString stringWithFormat:@"%ld",txtId]];
+        [self.helper insertChaptersIdx:0 title:@"" content:content txtId:[NSString stringWithFormat:@"%ld",txtId]];
     }
 }
 

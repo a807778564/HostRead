@@ -7,10 +7,14 @@
 //
 
 #import "HRChapterListController.h"
+#import "HRReadDetailController.h"
+#import "HRTxtModel.h"
 
 @interface HRChapterListController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *chapterTable;
+
+@property (nonatomic, strong) HRDBHelper *helper;
 
 @end
 
@@ -18,6 +22,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.helper = [[HRDBHelper alloc] init];
+    
     self.title = @"目录";
     [self setBackBtn];
     // Do any additional setup after loading the view.
@@ -32,7 +39,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.allChapters.count;
+    return [self.txtModel.allChapter integerValue];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -48,20 +55,29 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifer];
         [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
     }
-    NSMutableDictionary *dic = self.allChapters[indexPath.row];
+    NSMutableDictionary *dic = [self.helper chapterTitleWithTxtId:self.txtModel.txtId chaperIdx:indexPath.row];
     cell.textLabel.text = dic[@"title"];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    NSMutableDictionary *dic = [self.helper chapterTitleWithTxtId:self.txtModel.txtId chaperIdx:indexPath.row];
+    self.txtModel.readChapter = [NSString stringWithFormat:@"%ld",indexPath.row];
+    self.txtModel.redPage = @"0";
     
-
+    for (UIViewController *con in self.navigationController.childViewControllers) {
+        if ([con isKindOfClass:[HRReadDetailController class]]) {
+            HRReadDetailController *read = (HRReadDetailController *)con;
+            read.txtModel = self.txtModel;
+            [self.navigationController popToViewController:read animated:YES];
+            return;
+        }
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)doLeftAction:(id)sender{
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

@@ -22,7 +22,7 @@
             NSString *createSearchHistory = @"CREATE TABLE IF NOT EXISTS 'table_txt' ('txtId' INTEGER PRIMARY KEY AUTOINCREMENT, 'txtName' VARCHAR NOT NULL, 'redPage' VARCHAR NOT NULL , 'readChapter' VARCHAR NOT NULL, 'allChapter' INTEGER )";
             [db executeUpdate:createSearchHistory];
             //新建本地兑换单数据表格
-            NSString *createIntallMallList = @"CREATE TABLE IF NOT EXISTS 'table_chapters' ('chapterid' INTEGER PRIMARY KEY AUTOINCREMENT, 'title' VARCHAR NOT NULL, 'content' VARCHAR NOT NULL,'txtId' INTEGER,FOREIGN KEY(txtId) REFERENCES table_txt(txtId))";
+            NSString *createIntallMallList = @"CREATE TABLE IF NOT EXISTS 'table_chapters' ('chapterid' INTEGER PRIMARY KEY AUTOINCREMENT, idx INTEGER, 'title' VARCHAR NOT NULL, 'content' VARCHAR NOT NULL,'txtId' INTEGER,FOREIGN KEY(txtId) REFERENCES table_txt(txtId))";
             [db executeUpdate:createIntallMallList];
         }
     }
@@ -61,7 +61,7 @@
     FMDatabase *db = [self getBase];
     NSInteger insetId = 0;
     if ([db open]) {
-        BOOL insert = [db executeUpdate:@"insert into table_txt(txtName,redPage,readChapter,allChapter)values(?,'0','1',?)",txtName,[NSNumber numberWithInteger:allChapter]];
+        BOOL insert = [db executeUpdate:@"insert into table_txt(txtName,redPage,readChapter,allChapter)values(?,'0','0',?)",txtName,[NSNumber numberWithInteger:allChapter]];
         if (insert) {
             result = [db executeQuery:@"select last_insert_rowid() from table_txt"];
             if ([result next]) {
@@ -117,10 +117,10 @@
 }
 
 #pragma mark table_chapters操作
-- (void)insertChapters:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId{
+- (void)insertChaptersIdx:(NSInteger)idx title:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId{
     FMDatabase *db = [self getBase];
     if ([db open]) {
-        BOOL insert = [db executeUpdate:@"insert into table_chapters(title,content,txtId)values(?,?,?)",title,content,[NSNumber numberWithInteger:[txtId integerValue]]];
+        BOOL insert = [db executeUpdate:@"insert into table_chapters(idx,title,content,txtId)values(?,?,?,?)",[NSNumber numberWithInteger:idx],title,content,[NSNumber numberWithInteger:[txtId integerValue]]];
         if (insert) {
             NSLog(@"success");
         }
@@ -133,7 +133,7 @@
     FMResultSet *result = [[FMResultSet alloc] init];
     FMDatabase *db = [self getBase];
     if ([db open]) {
-        result = [db executeQuery:@"select title,content from table_chapters where chapterid=? and txtId=?",[NSNumber numberWithInteger:chapterCount],txtId];
+        result = [db executeQuery:@"select title,content from table_chapters where idx=? and txtId=?",[NSNumber numberWithInteger:chapterCount],txtId];
         if ([result next]) {
             chapter.title = [result stringForColumn:@"title"];
             chapter.content = [result stringForColumn:@"content"];
@@ -141,6 +141,21 @@
     }
     [db close];
     return chapter;
+}
+
+- (NSMutableDictionary *)chapterTitleWithTxtId:(NSString *)txtId chaperIdx:(NSInteger)idx{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    FMResultSet *result = [[FMResultSet alloc] init];
+    FMDatabase *db = [self getBase];
+    if ([db open]) {
+        result = [db executeQuery:@"select chapterid,title from table_chapters where txtId=? and idx=?",txtId,[NSNumber numberWithInteger:idx]];
+        if ([result next]) {
+            [dic setValue:[result stringForColumn:@"chapterid"] forKey:@"chapterid"];
+            [dic setValue:[result stringForColumn:@"title"] forKey:@"title"];
+        }
+    }
+    [db close];
+    return dic;
 }
 
 - (NSMutableArray *)selectAllChapter:(NSString *)txtId{

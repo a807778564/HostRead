@@ -18,7 +18,7 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHexa:@"#00bb9c"]] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil]];
-    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
 }
@@ -32,6 +32,11 @@
 - (void)setRightBtn{
     UIImage *image = [UIImage imageNamedWithoutNOSelectBlue:@"nav_add"];
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(doRightAction:)];
+    self.navigationItem.rightBarButtonItem = backBtn;
+}
+
+- (void)setRightBtnWithTxt:(NSString *)text{
+    UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithTitle:text size:CGSizeMake(44, 44) target:self action:@selector(doRightAction:)];
     self.navigationItem.rightBarButtonItem = backBtn;
 }
 

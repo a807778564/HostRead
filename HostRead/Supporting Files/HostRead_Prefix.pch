@@ -16,7 +16,9 @@
 
 #import "UIColor+ColorWithHex.h"
 #import "UIImage+Color.h"
-
+#import "UIBarButtonItem+HRS.h"
+#import "UIButton+simpleinit.h"
+#import "UILabel+simpleinit.h"
 
 #import "HRReadTool.h"
 #import "HRDBHelper.h"

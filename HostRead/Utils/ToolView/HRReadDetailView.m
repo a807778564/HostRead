@@ -15,8 +15,6 @@
 
 @property (nonatomic, strong) UILabel *pageLabel;
 
-@property (nonatomic, strong) UILabel *contect;
-
 @property (nonatomic, strong) HRBatteryView *batter;
 
 @property (nonatomic, strong) UILabel *timeLabel;
@@ -32,14 +30,6 @@
         
         self.backgroundColor = RGBA(159,223,176,1);
         
-        self.headerView = [self getHeaderInfoView];
-        [self addSubview:self.headerView];
-        [self.headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.mas_top).offset(-44);
-            make.height.offset(44);
-            make.leading.and.trailing.equalTo(self);
-        }];
-        
         self.titleTxt = [[UILabel alloc] init];
         self.titleTxt.text = @"";
         self.titleTxt.font = [UIFont systemFontOfSize:14];
@@ -53,7 +43,7 @@
         self.contect = [[UILabel alloc] init];
         self.contect.numberOfLines = 0;
         self.contect.textAlignment = NSTextAlignmentLeft;
-        self.contect.font = [UIFont systemFontOfSize:14];
+        self.contect.font = [UIFont systemFontOfSize:[[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"]];
         [self addSubview:self.contect];
         [self.contect mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleTxt.mas_bottom).offset(10);
@@ -90,81 +80,17 @@
             make.trailing.equalTo(self.contect.mas_trailing);
             make.centerY.equalTo(self.batter.mas_centerY);
         }];
-        
-        UIButton *settingBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [settingBtn addTarget:self action:@selector(settingOnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:settingBtn];
-        [settingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.offset(80);
-            make.height.offset(80);
-            make.centerY.equalTo(self.mas_centerY);
-            make.centerX.equalTo(self.mas_centerX);
-        }];
     }
     return self;
 }
 
 - (void)updateContent:(NSString *)content title:(NSString *)title page:(NSString *)page{
+    self.contect.text = @"";
     self.contect.text = content;
     self.titleTxt.text = title;
     self.pageLabel.text = page;
     self.timeLabel.text = [self currentTimeString];
-//    self.batter
-}
-
-- (void)settingOnClick:(UIButton *)btn{
-    btn.selected = !btn.selected;
-    [self bringSubviewToFront:self.headerView];
-    [UIView animateWithDuration:0.5 animations:^{
-        [self.headerView mas_updateConstraints:^(MASConstraintMaker *make) {
-            if (btn.selected) {
-                make.top.equalTo(self.mas_top);
-            }else{
-                make.top.equalTo(self.mas_top).offset(-44);
-            }
-        }];
-        [self layoutIfNeeded];
-    }];
-}
-
-- (UIView *)getHeaderInfoView{
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = mainColor;
-    
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeCustom];
-    back.tag = HReeadSettingBack;
-    [back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-    [back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateHighlighted];
-    [back addTarget:self action:@selector(selfBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [view addSubview:back];
-    [back mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(view.mas_centerY);
-        make.leading.equalTo(view.mas_leading);
-        make.width.offset(44);
-        make.height.offset(44);
-    }];
-    
-    UIButton *list = [UIButton buttonWithType:UIButtonTypeCustom];
-    list.tag = HReeadSettingList;
-    [list addTarget:self action:@selector(selfBtnOnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [list setTitle:@"目录" forState:UIControlStateNormal];
-    [list.titleLabel setFont:[UIFont boldSystemFontOfSize:15]];
-    [list setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [view addSubview:list];
-    [list mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(view.mas_centerY);
-        make.trailing.equalTo(view.mas_trailing).offset(-10);
-        make.width.offset(44);
-        make.height.offset(44);
-    }];
-    
-    return view;
-}
-
-- (void)selfBtnOnClick:(UIButton *)btn{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(HRReadDetailViewDidSetting:)]) {
-        [self.delegate HRReadDetailViewDidSetting:btn.tag];
-    }
+    self.batter.batteryLevel = [self getBatteryLevel];
 }
 
 //当前系统时间
@@ -173,7 +99,7 @@
     for (id info in infoArray)
     {
         if ([info isKindOfClass:NSClassFromString(@"UIStatusBarTimeItemView")])
-            
+        
         {
             NSString *timeString = [info valueForKeyPath:@"timeString"];
             if ([timeString hasSuffix:@"PM"]) {
@@ -192,7 +118,8 @@
 }
 
 //获取电量的等级，0.00~1.00
--(float) getBatteryLevel{
+-(float)getBatteryLevel{
+    [UIDevice currentDevice].batteryMonitoringEnabled = YES;
     return [UIDevice currentDevice].batteryLevel;
 }
 

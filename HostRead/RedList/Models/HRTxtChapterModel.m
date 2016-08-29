@@ -19,8 +19,9 @@
 
 - (void)setContent:(NSString *)content{
     _content = content;
-    NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithCapacity:5];
-    UIFont * font = [UIFont fontWithName:@"Arial" size:14];
+    float fontSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"];
+    NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithCapacity:fontSize];
+    UIFont * font = [UIFont fontWithName:@"Arial" size:fontSize];
     [attributes setValue:font forKey:NSFontAttributeName];
     [attributes setValue:@(2.0) forKey:NSKernAttributeName];
     

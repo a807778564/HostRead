@@ -46,14 +46,17 @@
             make.top.equalTo(borerView.mas_top).offset(1.5);
             make.bottom.equalTo(borerView.mas_bottom).offset(-1.5);
             make.leading.equalTo(borerView.mas_leading).offset(1.5);
-            make.trailing.equalTo(borerView.mas_trailing).offset(-1.5);
+//            make.trailing.equalTo(borerView.mas_trailing).offset(-1.5);
+            make.width.equalTo(@15);
         }];
     }
     return self;
 }
 
 - (void)setBatteryLevel:(float)batteryLevel{
-    
+    [self.batteryView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@(15*batteryLevel));
+    }];
 }
 
 @end

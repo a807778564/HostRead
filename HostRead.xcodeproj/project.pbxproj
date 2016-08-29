@@ -22,11 +22,16 @@
 		2C453E131D6D72980061B535 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C453E121D6D72980061B535 /* CoreText.framework */; };
 		2C453E191D6D7BE20061B535 /* HRReadDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C453E181D6D7BE20061B535 /* HRReadDetailController.m */; };
 		2C453E1C1D6D8C870061B535 /* HRDidReadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C453E1B1D6D8C870061B535 /* HRDidReadModel.m */; };
+		2C46322E1D7423D100AC062E /* UIBarButtonItem+HRS.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4632251D7423D100AC062E /* UIBarButtonItem+HRS.m */; };
+		2C46322F1D7423D100AC062E /* UIColor+ColorWithHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4632281D7423D100AC062E /* UIColor+ColorWithHex.m */; };
+		2C4632301D7423D100AC062E /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46322B1D7423D100AC062E /* UIImage+Color.m */; };
+		2C4632311D7423D100AC062E /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46322D1D7423D100AC062E /* UIImage+ImageEffects.m */; };
+		2C4632341D742F9000AC062E /* HRDetailSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4632331D742F9000AC062E /* HRDetailSettingView.m */; };
+		2C46323B1D74313700AC062E /* UIButton+simpleinit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4632371D74313700AC062E /* UIButton+simpleinit.m */; };
+		2C46323C1D74313700AC062E /* UILabel+simpleinit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46323A1D74313700AC062E /* UILabel+simpleinit.m */; };
 		2C47E0ED1D71898600329CF2 /* HRChapterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C47E0EC1D71898600329CF2 /* HRChapterListController.m */; };
 		2C6C9DA91D702D4A00D9EB00 /* HRBatteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */; };
 		2C6C9DAC1D7034F400D9EB00 /* HRReadDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */; };
-		2C76B69A1D6ADB4E0052CCF8 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76B6971D6ADB4E0052CCF8 /* UIImage+Color.m */; };
-		2C76B69B1D6ADB4E0052CCF8 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76B6991D6ADB4E0052CCF8 /* UIImage+ImageEffects.m */; };
 		2C76B6A11D6AE7500052CCF8 /* HRRecentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76B6A01D6AE7500052CCF8 /* HRRecentController.m */; };
 		2C76B6BF1D6AF8F60052CCF8 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76B6A71D6AF8F60052CCF8 /* MASCompositeConstraint.m */; };
 		2C76B6C01D6AF8F60052CCF8 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76B6AA1D6AF8F60052CCF8 /* MASConstraint.m */; };
@@ -48,7 +53,6 @@
 		2C7A08E11D6ACD380027B1B5 /* HRBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08E01D6ACD380027B1B5 /* HRBaseController.m */; };
 		2C7A08E81D6ACE270027B1B5 /* HRRedListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08E71D6ACE270027B1B5 /* HRRedListController.m */; };
 		2C7A08EB1D6ACE510027B1B5 /* HRSsettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08EA1D6ACE510027B1B5 /* HRSsettingController.m */; };
-		2C7A08EF1D6AD2070027B1B5 /* UIColor+ColorWithHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08EE1D6AD2070027B1B5 /* UIColor+ColorWithHex.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,16 +85,26 @@
 		2C453E181D6D7BE20061B535 /* HRReadDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRReadDetailController.m; sourceTree = "<group>"; };
 		2C453E1A1D6D8C870061B535 /* HRDidReadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRDidReadModel.h; sourceTree = "<group>"; };
 		2C453E1B1D6D8C870061B535 /* HRDidReadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRDidReadModel.m; sourceTree = "<group>"; };
+		2C4632241D7423D100AC062E /* UIBarButtonItem+HRS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+HRS.h"; sourceTree = "<group>"; };
+		2C4632251D7423D100AC062E /* UIBarButtonItem+HRS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+HRS.m"; sourceTree = "<group>"; };
+		2C4632271D7423D100AC062E /* UIColor+ColorWithHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorWithHex.h"; sourceTree = "<group>"; };
+		2C4632281D7423D100AC062E /* UIColor+ColorWithHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorWithHex.m"; sourceTree = "<group>"; };
+		2C46322A1D7423D100AC062E /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		2C46322B1D7423D100AC062E /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		2C46322C1D7423D100AC062E /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		2C46322D1D7423D100AC062E /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		2C4632321D742F9000AC062E /* HRDetailSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRDetailSettingView.h; sourceTree = "<group>"; };
+		2C4632331D742F9000AC062E /* HRDetailSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRDetailSettingView.m; sourceTree = "<group>"; };
+		2C4632361D74313700AC062E /* UIButton+simpleinit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+simpleinit.h"; sourceTree = "<group>"; };
+		2C4632371D74313700AC062E /* UIButton+simpleinit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+simpleinit.m"; sourceTree = "<group>"; };
+		2C4632391D74313700AC062E /* UILabel+simpleinit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+simpleinit.h"; sourceTree = "<group>"; };
+		2C46323A1D74313700AC062E /* UILabel+simpleinit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+simpleinit.m"; sourceTree = "<group>"; };
 		2C47E0EB1D71898600329CF2 /* HRChapterListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRChapterListController.h; sourceTree = "<group>"; };
 		2C47E0EC1D71898600329CF2 /* HRChapterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRChapterListController.m; sourceTree = "<group>"; };
 		2C6C9DA71D702D4A00D9EB00 /* HRBatteryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBatteryView.h; sourceTree = "<group>"; };
 		2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBatteryView.m; sourceTree = "<group>"; };
 		2C6C9DAA1D7034F400D9EB00 /* HRReadDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRReadDetailView.h; sourceTree = "<group>"; };
 		2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRReadDetailView.m; sourceTree = "<group>"; };
-		2C76B6961D6ADB4E0052CCF8 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
-		2C76B6971D6ADB4E0052CCF8 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
-		2C76B6981D6ADB4E0052CCF8 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
-		2C76B6991D6ADB4E0052CCF8 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		2C76B69F1D6AE7500052CCF8 /* HRRecentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRRecentController.h; sourceTree = "<group>"; };
 		2C76B6A01D6AE7500052CCF8 /* HRRecentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRRecentController.m; sourceTree = "<group>"; };
 		2C76B6A61D6AF8F60052CCF8 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
@@ -134,8 +148,6 @@
 		2C7A08E71D6ACE270027B1B5 /* HRRedListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRRedListController.m; sourceTree = "<group>"; };
 		2C7A08E91D6ACE510027B1B5 /* HRSsettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRSsettingController.h; sourceTree = "<group>"; };
 		2C7A08EA1D6ACE510027B1B5 /* HRSsettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRSsettingController.m; sourceTree = "<group>"; };
-		2C7A08ED1D6AD2070027B1B5 /* UIColor+ColorWithHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+ColorWithHex.h"; sourceTree = "<group>"; };
-		2C7A08EE1D6AD2070027B1B5 /* UIColor+ColorWithHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ColorWithHex.m"; sourceTree = "<group>"; };
 		2C7A08F01D6AD2390027B1B5 /* HostRead_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostRead_Prefix.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,8 +240,69 @@
 		2C453E161D6D7B930061B535 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C4632321D742F9000AC062E /* HRDetailSettingView.h */,
+				2C4632331D742F9000AC062E /* HRDetailSettingView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2C4632221D7423D100AC062E /* Define */ = {
+			isa = PBXGroup;
+			children = (
+				2C4632351D74313700AC062E /* UIButton */,
+				2C4632381D74313700AC062E /* UILabel */,
+				2C4632231D7423D100AC062E /* UIBarButtonItem */,
+				2C4632261D7423D100AC062E /* UIColor */,
+				2C4632291D7423D100AC062E /* UIImage */,
+			);
+			path = Define;
+			sourceTree = "<group>";
+		};
+		2C4632231D7423D100AC062E /* UIBarButtonItem */ = {
+			isa = PBXGroup;
+			children = (
+				2C4632241D7423D100AC062E /* UIBarButtonItem+HRS.h */,
+				2C4632251D7423D100AC062E /* UIBarButtonItem+HRS.m */,
+			);
+			path = UIBarButtonItem;
+			sourceTree = "<group>";
+		};
+		2C4632261D7423D100AC062E /* UIColor */ = {
+			isa = PBXGroup;
+			children = (
+				2C4632271D7423D100AC062E /* UIColor+ColorWithHex.h */,
+				2C4632281D7423D100AC062E /* UIColor+ColorWithHex.m */,
+			);
+			path = UIColor;
+			sourceTree = "<group>";
+		};
+		2C4632291D7423D100AC062E /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				2C46322A1D7423D100AC062E /* UIImage+Color.h */,
+				2C46322B1D7423D100AC062E /* UIImage+Color.m */,
+				2C46322C1D7423D100AC062E /* UIImage+ImageEffects.h */,
+				2C46322D1D7423D100AC062E /* UIImage+ImageEffects.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		2C4632351D74313700AC062E /* UIButton */ = {
+			isa = PBXGroup;
+			children = (
+				2C4632361D74313700AC062E /* UIButton+simpleinit.h */,
+				2C4632371D74313700AC062E /* UIButton+simpleinit.m */,
+			);
+			path = UIButton;
+			sourceTree = "<group>";
+		};
+		2C4632381D74313700AC062E /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				2C4632391D74313700AC062E /* UILabel+simpleinit.h */,
+				2C46323A1D74313700AC062E /* UILabel+simpleinit.m */,
+			);
+			path = UILabel;
 			sourceTree = "<group>";
 		};
 		2C6C9DA61D702D2C00D9EB00 /* ToolView */ = {
@@ -241,17 +314,6 @@
 				2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */,
 			);
 			path = ToolView;
-			sourceTree = "<group>";
-		};
-		2C76B6951D6ADB4E0052CCF8 /* UIImage */ = {
-			isa = PBXGroup;
-			children = (
-				2C76B6961D6ADB4E0052CCF8 /* UIImage+Color.h */,
-				2C76B6971D6ADB4E0052CCF8 /* UIImage+Color.m */,
-				2C76B6981D6ADB4E0052CCF8 /* UIImage+ImageEffects.h */,
-				2C76B6991D6ADB4E0052CCF8 /* UIImage+ImageEffects.m */,
-			);
-			path = UIImage;
 			sourceTree = "<group>";
 		};
 		2C76B69C1D6AE7220052CCF8 /* Recent */ = {
@@ -414,25 +476,15 @@
 		2C7A08DE1D6ACCAD0027B1B5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2C4632221D7423D100AC062E /* Define */,
 				2C6C9DA61D702D2C00D9EB00 /* ToolView */,
 				2C41AAE11D6F06E2007CE67E /* Tool */,
 				2C41AACA1D6EBBE7007CE67E /* fmdb */,
 				2C76B6A51D6AF8F60052CCF8 /* Masonry */,
-				2C76B6951D6ADB4E0052CCF8 /* UIImage */,
-				2C7A08EC1D6AD2070027B1B5 /* UIColor */,
 				2C7A08DF1D6ACD380027B1B5 /* HRBaseController.h */,
 				2C7A08E01D6ACD380027B1B5 /* HRBaseController.m */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		2C7A08EC1D6AD2070027B1B5 /* UIColor */ = {
-			isa = PBXGroup;
-			children = (
-				2C7A08ED1D6AD2070027B1B5 /* UIColor+ColorWithHex.h */,
-				2C7A08EE1D6AD2070027B1B5 /* UIColor+ColorWithHex.m */,
-			);
-			path = UIColor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,8 +559,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C76B6C71D6AF8F60052CCF8 /* View+MASAdditions.m in Sources */,
+				2C46323B1D74313700AC062E /* UIButton+simpleinit.m in Sources */,
 				2C3EC1651D6C201B001A335A /* HRAllFloderController.m in Sources */,
-				2C76B69B1D6ADB4E0052CCF8 /* UIImage+ImageEffects.m in Sources */,
 				2C76B6A11D6AE7500052CCF8 /* HRRecentController.m in Sources */,
 				2C41AAD81D6EBBE7007CE67E /* FMDatabasePool.m in Sources */,
 				2C47E0ED1D71898600329CF2 /* HRChapterListController.m in Sources */,
@@ -517,7 +569,7 @@
 				2C76B6CB1D6AFE410052CCF8 /* HRReadListCell.m in Sources */,
 				2C7A08D61D6ACC2A0027B1B5 /* main.m in Sources */,
 				2C7A08E81D6ACE270027B1B5 /* HRRedListController.m in Sources */,
-				2C76B69A1D6ADB4E0052CCF8 /* UIImage+Color.m in Sources */,
+				2C46322E1D7423D100AC062E /* UIBarButtonItem+HRS.m in Sources */,
 				2C76B6C81D6AF8F60052CCF8 /* ViewController+MASAdditions.m in Sources */,
 				2C41AADA1D6EBBE7007CE67E /* FMResultSet.m in Sources */,
 				2C76B6C31D6AF8F60052CCF8 /* MASViewAttribute.m in Sources */,
@@ -525,10 +577,12 @@
 				2C76B6BF1D6AF8F60052CCF8 /* MASCompositeConstraint.m in Sources */,
 				2C7A08EB1D6ACE510027B1B5 /* HRSsettingController.m in Sources */,
 				2C41AAD61D6EBBE7007CE67E /* FMDatabase.m in Sources */,
-				2C7A08EF1D6AD2070027B1B5 /* UIColor+ColorWithHex.m in Sources */,
+				2C46322F1D7423D100AC062E /* UIColor+ColorWithHex.m in Sources */,
 				2C453E1C1D6D8C870061B535 /* HRDidReadModel.m in Sources */,
+				2C4632341D742F9000AC062E /* HRDetailSettingView.m in Sources */,
 				2C453E191D6D7BE20061B535 /* HRReadDetailController.m in Sources */,
 				2C76B6C11D6AF8F60052CCF8 /* MASConstraintMaker.m in Sources */,
+				2C4632311D7423D100AC062E /* UIImage+ImageEffects.m in Sources */,
 				2C41AAEA1D6F0719007CE67E /* HRDecTxtTool.m in Sources */,
 				2C453E0E1D6D411E0061B535 /* HRTxtChapterModel.m in Sources */,
 				2C76B6C01D6AF8F60052CCF8 /* MASConstraint.m in Sources */,
@@ -540,7 +594,9 @@
 				2C41AAE71D6F06E2007CE67E /* HRReadTool.m in Sources */,
 				2C76B6C51D6AF8F60052CCF8 /* NSArray+MASAdditions.m in Sources */,
 				2C7A08D41D6ACC2A0027B1B5 /* AppDelegate.m in Sources */,
+				2C4632301D7423D100AC062E /* UIImage+Color.m in Sources */,
 				2C7A08E11D6ACD380027B1B5 /* HRBaseController.m in Sources */,
+				2C46323C1D74313700AC062E /* UILabel+simpleinit.m in Sources */,
 				2C76B6C41D6AF8F60052CCF8 /* MASViewConstraint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

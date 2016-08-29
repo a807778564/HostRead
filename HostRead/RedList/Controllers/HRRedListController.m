@@ -13,7 +13,7 @@
 #import "HRReadDetailController.h"
 #import "HRDecTxtTool.h"
 
-@interface HRRedListController ()
+@interface HRRedListController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *fileTable;
 

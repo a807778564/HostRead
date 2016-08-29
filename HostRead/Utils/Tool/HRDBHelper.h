@@ -20,9 +20,11 @@
 - (void)updateSliderWitnTxtId:(NSString *)txtId readPage:(NSInteger)page readChapter:(NSInteger)chapter;
 
 #pragma mark
-- (void)insertChapters:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId;
+- (void)insertChaptersIdx:(NSInteger)idx title:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId;
 
 - (HRTxtChapterModel *)selectChapterModelWithChapterCount:(NSInteger)chapterCount txtId:(NSString *)txtId;
+
+- (NSMutableDictionary *)chapterTitleWithTxtId:(NSString *)txtId chaperIdx:(NSInteger)idx;
 
 - (NSMutableArray *)selectAllChapter:(NSString *)txtId;
 @end

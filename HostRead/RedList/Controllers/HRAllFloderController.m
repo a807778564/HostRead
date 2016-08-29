@@ -9,7 +9,7 @@
 #import "HRAllFloderController.h"
 #import "HRReadListCell.h"
 
-@interface HRAllFloderController ()
+@interface HRAllFloderController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *allFloder;
 

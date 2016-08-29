@@ -13,6 +13,7 @@
 #import "HRDBHelper.h"
 #import "HRReadDetailView.h"
 #import "HRChapterListController.h"
+#import "HRDetailSettingView.h"
 
 typedef NS_ENUM(NSInteger){
     Direction_left = 101,//左滑
@@ -22,7 +23,7 @@ typedef NS_ENUM(NSInteger){
     Direction_none = 105
 }Direction;
 
-@interface HRReadDetailController ()<HRReadDetailViewDelegate>
+@interface HRReadDetailController ()<HRDetailSettingViewDelegate>
 
 @property (nonatomic, strong) HRTxtChapterModel *redChapter;
 
@@ -44,6 +45,12 @@ typedef NS_ENUM(NSInteger){
 
 @property (nonatomic, assign) Direction direction;
 
+@property (nonatomic, assign) BOOL isSetting;//开启设置
+
+@property (nonatomic, strong) HRDetailSettingView *settingView;
+
+@property (nonatomic, assign) CGFloat fontSize;
+
 @end
 
 @implementation HRReadDetailController
@@ -51,13 +58,15 @@ typedef NS_ENUM(NSInteger){
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGBA(159,223,176,1);
+    self.navigationController.tabBarController.view.backgroundColor = RGBA(159,223,176,1);
     self.helper = [[HRDBHelper alloc] init];
+    self.isSetting = YES;//默认隐藏navbar
+    self.fontSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"];
     
-    self.navigationController.navigationBar.hidden = YES;
-    
+    [self setBackBtn];
+    [self setRightBtnWithTxt:@"目录"];
     self.readDetailOne = [[HRReadDetailView alloc] init];
     self.readDetailOne.tag = 1;
-    self.readDetailOne.delegate = self;
     [self.view addSubview:self.readDetailOne];
     [self.readDetailOne mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view.mas_leading);
@@ -68,7 +77,6 @@ typedef NS_ENUM(NSInteger){
     
     self.readDetailTwo = [[HRReadDetailView alloc] init];
     self.readDetailTwo.tag = 2;
-    self.readDetailTwo.delegate = self;
     [self.view addSubview:self.readDetailTwo];
     [self.readDetailTwo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.view.mas_leading);
@@ -77,13 +85,27 @@ typedef NS_ENUM(NSInteger){
         make.height.offset(ScreenHeight);
     }];
     
+    self.settingView = [[HRDetailSettingView alloc] init];
+    self.settingView.delegate = self;
+    [self.view addSubview:self.settingView];
+    [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(132);
+        make.leading.and.trailing.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self.view bringSubviewToFront:self.readDetailOne];// 第一页显示到最上层
+    [self initPageOneCon];
     self.redPage = [self.txtModel.redPage integerValue];
     self.redChapterCount = [self.txtModel.readChapter integerValue];
     self.redChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
     self.totalPage = self.redChapter.pageCount;
     [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
-    
-    [self.view bringSubviewToFront:self.readDetailOne];// 第一页显示到最上层
 }
 
 - (void)updateContent:(Direction)direction showPage:(HRReadDetailView *)pageView{
@@ -96,7 +118,7 @@ typedef NS_ENUM(NSInteger){
         }
     }else if(direction == Direction_right){//上一页
         self.redPage -= 1;
-        if (self.redPage < 0 && self.redChapterCount >= 1) {
+        if (self.redPage < 0 && self.redChapterCount > 0) {
             self.redChapterCount -= 1;
             self.redChapter =[self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
             self.redPage = self.redChapter.pageCount-1;
@@ -123,9 +145,10 @@ typedef NS_ENUM(NSInteger){
     //得出手指在view上移动的距离
     CGPoint panPoint = CGPointMake(movePoint.x - self.startPoint.x, movePoint.y - self.startPoint.y);
     //分析出用户滑动的方向
+    
     if (panPoint.x >= 1 || panPoint.x <= -1) {//左右
-        if (self.startPoint.x <= self.view.frame.size.width / 2.0) {
-            if (self.redChapterCount<=1 && self.redPage<=0) {//第一页 不能前翻
+        if (panPoint.x >= 1) {
+            if (self.redChapterCount<=0 && self.redPage<=0) {//第一页 不能前翻
                 return;
             }
             self.direction = Direction_right;
@@ -138,8 +161,8 @@ typedef NS_ENUM(NSInteger){
             }
         }
         
-    } else if (panPoint.y >= 30 || panPoint.y <= -30) {//上下
-        if (self.startPoint.y <= self.view.frame.size.height / 2.0) {
+    } else if (panPoint.y >= 1 || panPoint.y <= -1) {//上下
+        if (panPoint.x >= 1) {
             self.direction = Direction_down;
            
         } else {
@@ -181,6 +204,10 @@ typedef NS_ENUM(NSInteger){
     HRReadDetailView *moveView = [self getMoveView:touch.view.tag direction:self.direction];
     CGPoint endPoint = [touch locationInView:self.view];
     
+    if (endPoint.x == self.startPoint.x && endPoint.y == self.startPoint.y) {//加载设置 
+        [self loadSetting:touch.view.tag];
+    }
+
     switch (self.direction) {
         case Direction_none:
             
@@ -200,7 +227,7 @@ typedef NS_ENUM(NSInteger){
             }];
             [UIView animateWithDuration:0.5f animations:^{
                 [moveView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    if (endPoint.x < ScreenWidth/2) {
+                    if ((self.startPoint.x-endPoint.x) > 50) {
                         make.trailing.equalTo(self.view.mas_leading);
                         if (moveView.tag == 1) {
                             [self updateContent:self.direction showPage:self.readDetailTwo];
@@ -220,7 +247,7 @@ typedef NS_ENUM(NSInteger){
             }];
         }break;
         case Direction_right:{
-            if (self.redChapterCount<=1 && self.redPage<=0) {//第一页 不能前翻
+            if (self.redChapterCount<=0 && self.redPage<=0) {//第一页 不能前翻
                 return;
             }
             [moveView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -228,7 +255,7 @@ typedef NS_ENUM(NSInteger){
             }];
             [UIView animateWithDuration:0.5f animations:^{
                 [moveView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    if (endPoint.x < ScreenWidth/2) {
+                    if ((self.startPoint.x-endPoint.x) > -50) {
                         make.trailing.equalTo(self.view.mas_leading);
                     }else{
                         make.trailing.equalTo(self.view.mas_trailing);
@@ -245,7 +272,6 @@ typedef NS_ENUM(NSInteger){
     }
 }
 
-
 - (HRReadDetailView *)getMoveView:(NSInteger)tag direction:(Direction)direction{
     if (tag == 1) {
         if (direction == Direction_right) {//右滑返回另一个对象
@@ -259,6 +285,52 @@ typedef NS_ENUM(NSInteger){
         return self.readDetailTwo;
     }
     
+}
+
+- (void)loadSetting:(NSInteger)touchTag{
+    if (self.startPoint.x > ScreenWidth/2 - 50 && self.startPoint.x < ScreenWidth/2 + 50) {//弹出设置
+        if (!self.isSetting) {
+            self.startPoint = CGPointMake(self.startPoint.x, self.startPoint.y+64);
+        }
+        if (self.startPoint.y < ScreenHeight/2+50 && self.startPoint.y > ScreenHeight/2-50) {
+            self.isSetting = !self.isSetting;
+            HRReadDetailView *moveView = [self getMoveView:touchTag direction:self.direction];
+            if (self.isSetting) {
+                [moveView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.view.mas_top);
+                }];
+                
+                [self.settingView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                }];
+
+                [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.height.offset(132);
+                    make.leading.and.trailing.equalTo(self.view);
+                    make.top.equalTo(self.view.mas_bottom);
+                }];
+                //更新
+                [self updateShowTextContent:moveView];
+            }else{
+                [moveView mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.view.mas_top).offset(-64);
+                }];
+                
+                [self.view bringSubviewToFront:self.settingView];
+                [self.settingView mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    
+                }];
+                [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.height.offset(132);
+                    make.leading.and.trailing.equalTo(self.view);
+                    make.bottom.equalTo(self.view.mas_bottom);
+                }];
+                
+            }
+            [self.navigationController setNavigationBarHidden:self.isSetting animated:YES];
+            [[UIApplication sharedApplication] setStatusBarHidden:self.isSetting withAnimation:UIStatusBarAnimationSlide];
+        }
+    }
 }
 
 - (void)initPageOneCon{
@@ -285,17 +357,49 @@ typedef NS_ENUM(NSInteger){
     }];
 }
 
-#pragma HRReadDetailViewDelegate
-- (void)HRReadDetailViewDidSetting:(HReeadSettingType)settingType{
-    if (settingType == HReeadSettingBack) {
-        [self.helper updateSliderWitnTxtId:self.txtModel.txtId readPage:self.redPage readChapter:self.redChapterCount];
-        [self.navigationController popViewControllerAnimated:YES];
-    }else if(settingType == HReeadSettingList){
-        HRChapterListController *cha = [[HRChapterListController alloc] init];
-        cha.allChapters = [self.helper selectAllChapter:self.txtModel.txtId];
-        UINavigationController *ch = [[UINavigationController alloc] initWithRootViewController:cha];
-        [self presentViewController:ch animated:YES completion:nil];
+- (void)doLeftAction:(id)sender{
+    [self.helper updateSliderWitnTxtId:self.txtModel.txtId readPage:self.redPage readChapter:self.redChapterCount];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)doRightAction:(id)sender{
+    HRChapterListController *cha = [[HRChapterListController alloc] init];
+    cha.allChapters = [self.helper selectAllChapter:self.txtModel.txtId];
+    cha.txtModel = self.txtModel;
+    [self.navigationController pushViewController:cha animated:YES];
+}
+
+#pragma mark HRDetailSettingViewDelegate
+- (void)hrDetailSettingWithSettingType:(SettingType)settingType{
+    
+    if (settingType == SettingTypeFontAdd) {
+        self.fontSize += 2;
+        
+    }else if(settingType == SettingTypeFontReduce){
+        self.fontSize -= 2;
     }
+    
+    [self changeContentFont:self.fontSize];
+}
+
+
+- (void)changeContentFont:(CGFloat)fontSzie{
+
+    [[NSUserDefaults standardUserDefaults] setFloat:fontSzie forKey:@"FontSize"];
+    [self.readDetailOne.contect setFont:[UIFont systemFontOfSize:fontSzie]];
+    [self.readDetailTwo.contect setFont:[UIFont systemFontOfSize:fontSzie]];
+    
+    NSString *notReadContent = [self.redChapter getTextWithPage:self.redPage];
+    self.redPage = 0;
+    for (NSInteger i = self.redPage;i<self.redChapter.pageCount; i++) {
+        notReadContent = [NSString stringWithFormat:@"%@%@",notReadContent,[self.redChapter getTextWithPage:i]];
+    }
+    self.redChapter.content = notReadContent;
+}
+
+- (void)updateShowTextContent:(HRReadDetailView *)showView{
+    
+    [showView updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
 
@@ -304,11 +408,6 @@ typedef NS_ENUM(NSInteger){
     // Dispose of any resources that can be recreated.
 }
 
-//隐藏状态栏
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
 /*
 #pragma mark - Navigation
 

@@ -22,7 +22,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
+        [[NSUserDefaults standardUserDefaults] setFloat:14.0 forKey:@"FontSize"];
+      
+    }else{
+
+    }
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UITabBarController *rootController = [self createViewControllers];
     self.window.rootViewController = rootController;
@@ -30,8 +36,6 @@
     
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageWithColor:[UIColor whiteColor] Size:CGSizeMake([[UIScreen mainScreen] bounds].size.width/tabCount, 49) Alpha:0.2]];
     //tab 字体颜色 00bb9c
-    
-    HRDBHelper *db = [[HRDBHelper alloc] init];
     
     return YES;
 }

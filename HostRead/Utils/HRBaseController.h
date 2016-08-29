@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HRBaseController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface HRBaseController : UIViewController
 
 - (void)setBackBtn;
 - (void)setRightBtn;
+- (void)setRightBtnWithTxt:(NSString *)text;
 - (void)doLeftAction:(id)sender;
 - (void)doRightAction:(id)sender;
 @end

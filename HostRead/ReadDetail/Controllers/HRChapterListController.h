@@ -7,9 +7,12 @@
 //
 
 #import "HRBaseController.h"
+@class HRTxtModel;
 
 @interface HRChapterListController : HRBaseController
 
 @property (nonatomic, strong) NSMutableArray *allChapters;
+
+@property (nonatomic, strong) HRTxtModel *txtModel;
 
 @end
