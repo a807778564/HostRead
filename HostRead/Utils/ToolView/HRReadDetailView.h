@@ -12,6 +12,8 @@
 
 - (void)updateContent:(NSString *)content title:(NSString *)title page:(NSString *)page;
 
+- (void)changeReadModel:(UIColor *)backColor contentColor:(UIColor *)contentColor;
+
 @property (nonatomic, strong) UILabel *contect;
 
 @end

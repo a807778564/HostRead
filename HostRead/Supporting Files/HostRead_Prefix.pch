@@ -31,8 +31,8 @@
 #define ScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 
-#define kTopMargin 16
-#define kBottonMargin 16
+#define kTopMargin 26
+#define kBottonMargin 24
 #define kLeftMargin 16
 #define kRightMargin 16
 

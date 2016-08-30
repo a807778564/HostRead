@@ -27,10 +27,13 @@
 
 - (instancetype)init{
     if ([super init]) {
+        NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
+        NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         
-        self.backgroundColor = RGBA(159,223,176,1);
+        self.backgroundColor = [dic valueForKey:@"readBack"];
         
         self.titleTxt = [[UILabel alloc] init];
+        self.titleTxt.textColor = [dic valueForKey:@"contentColor"];
         self.titleTxt.text = @"";
         self.titleTxt.font = [UIFont systemFontOfSize:14];
         [self addSubview:self.titleTxt];
@@ -41,7 +44,9 @@
         }];
         
         self.contect = [[UILabel alloc] init];
+        self.contect.textColor = [dic valueForKey:@"contentColor"];
         self.contect.numberOfLines = 0;
+        self.contect.lineBreakMode = NSLineBreakByCharWrapping;
         self.contect.textAlignment = NSTextAlignmentLeft;
         self.contect.font = [UIFont systemFontOfSize:[[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"]];
         [self addSubview:self.contect];
@@ -91,6 +96,15 @@
     self.pageLabel.text = page;
     self.timeLabel.text = [self currentTimeString];
     self.batter.batteryLevel = [self getBatteryLevel];
+}
+
+- (void)changeReadModel:(UIColor *)backColor contentColor:(UIColor *)contentColor{
+    self.contect.textColor = contentColor;
+    self.titleTxt.textColor = contentColor;
+    self.timeLabel.textColor = contentColor;
+    self.pageLabel.textColor = contentColor;
+    self.backgroundColor = backColor;
+    [self.batter updateColor:contentColor];
 }
 
 //当前系统时间

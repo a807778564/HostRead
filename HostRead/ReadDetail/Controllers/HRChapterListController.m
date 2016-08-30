@@ -36,6 +36,9 @@
         make.edges.equalTo(self.view);
     }];
     
+    NSUInteger ii[2] = {0, [self.txtModel.readChapter integerValue]};
+    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
+    [self.chapterTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -54,6 +57,11 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifer];
         [cell.textLabel setFont:[UIFont systemFontOfSize:14]];
+    }
+    if (indexPath.row == [self.txtModel.readChapter integerValue]) {
+        cell.backgroundColor = RGBA(0, 0, 0, 0.1);
+    }else{
+        cell.backgroundColor = [UIColor whiteColor];
     }
     NSMutableDictionary *dic = [self.helper chapterTitleWithTxtId:self.txtModel.txtId chaperIdx:indexPath.row];
     cell.textLabel.text = dic[@"title"];

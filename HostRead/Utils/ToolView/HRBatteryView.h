@@ -12,4 +12,6 @@
 
 @property (nonatomic, assign) float batteryLevel;
 
+- (void)updateColor:(UIColor *)color;
+
 @end

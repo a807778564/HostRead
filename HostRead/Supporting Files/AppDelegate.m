@@ -24,8 +24,14 @@
     // Override point for customization after application launch.
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
-        [[NSUserDefaults standardUserDefaults] setFloat:14.0 forKey:@"FontSize"];
-      
+        
+        [[NSUserDefaults standardUserDefaults] setFloat:16.0 forKey:@"FontSize"];//默认字体
+        
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];//默认阅读模式
+        [dic setValue:[UIColor blackColor] forKey:@"readBack"];//黑色字体
+        [dic setValue:[UIColor whiteColor] forKey:@"contentColor"];//背景
+        NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
+        [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
     }else{
 
     }
@@ -95,6 +101,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"saveReadSlider" object:nil];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }

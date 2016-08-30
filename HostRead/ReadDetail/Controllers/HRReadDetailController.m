@@ -27,13 +27,9 @@ typedef NS_ENUM(NSInteger){
 
 @property (nonatomic, strong) HRTxtChapterModel *redChapter;
 
-@property (nonatomic, assign) NSInteger redPage;
+@property (nonatomic, assign) NSInteger redPage;//已读页数
 
-@property (nonatomic, assign) NSInteger redChapterCount;
-
-@property (nonatomic, assign) NSInteger totalPage;
-
-@property (nonatomic, assign) NSInteger totalChapter;
+@property (nonatomic, assign) NSInteger redChapterCount;//章数
 
 @property (nonatomic, strong) HRDBHelper *helper;
 
@@ -57,8 +53,11 @@ typedef NS_ENUM(NSInteger){
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = RGBA(159,223,176,1);
-    self.navigationController.tabBarController.view.backgroundColor = RGBA(159,223,176,1);
+    NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
+    NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    self.view.backgroundColor = [dic valueForKey:@"readBack"];
+    self.navigationController.tabBarController.view.backgroundColor = [dic valueForKey:@"readBack"];
     self.helper = [[HRDBHelper alloc] init];
     self.isSetting = YES;//默认隐藏navbar
     self.fontSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"];
@@ -89,10 +88,21 @@ typedef NS_ENUM(NSInteger){
     self.settingView.delegate = self;
     [self.view addSubview:self.settingView];
     [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.offset(132);
+        make.height.offset(160);
         make.leading.and.trailing.equalTo(self.view);
         make.top.equalTo(self.view.mas_bottom);
     }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveReadSlider) name:@"saveReadSlider" object:nil];
+}
+
+- (void)dealloc{
+    NSLog(@"delloc");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"saveReadSlider" object:nil];
+}
+
+- (void)saveReadSlider{
+    [self.helper updateSliderWitnTxtId:self.txtModel.txtId readPage:self.redPage readChapter:self.redChapterCount];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -102,9 +112,11 @@ typedef NS_ENUM(NSInteger){
     [self.view bringSubviewToFront:self.readDetailOne];// 第一页显示到最上层
     [self initPageOneCon];
     self.redPage = [self.txtModel.redPage integerValue];
+    if (self.redPage < 0) {
+        self.redPage = 0;
+    }
     self.redChapterCount = [self.txtModel.readChapter integerValue];
     self.redChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
-    self.totalPage = self.redChapter.pageCount;
     [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
@@ -147,12 +159,18 @@ typedef NS_ENUM(NSInteger){
     //分析出用户滑动的方向
     
     if (panPoint.x >= 1 || panPoint.x <= -1) {//左右
+        if (!self.isSetting) {
+            return;
+        }
         if (panPoint.x >= 1) {
             if (self.redChapterCount<=0 && self.redPage<=0) {//第一页 不能前翻
                 return;
             }
             self.direction = Direction_right;
         } else {
+            if (self.redChapterCount>=[self.txtModel.allChapter integerValue]-1 && self.redPage >= self.redChapter.pageCount-1) {//第一页 不能前翻
+                return;
+            }
             self.direction = Direction_left;
             if (touch.view.tag == 1 ) {
                 [self initPageTwoCon];
@@ -162,6 +180,9 @@ typedef NS_ENUM(NSInteger){
         }
         
     } else if (panPoint.y >= 1 || panPoint.y <= -1) {//上下
+        if (!self.isSetting) {
+            return;
+        }
         if (panPoint.x >= 1) {
             self.direction = Direction_down;
            
@@ -195,8 +216,6 @@ typedef NS_ENUM(NSInteger){
             make.height.offset(ScreenHeight);
         }];
     }
-    
-    
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -222,6 +241,9 @@ typedef NS_ENUM(NSInteger){
             break;
             
         case Direction_left:{
+            if (self.redChapterCount>=[self.txtModel.allChapter integerValue]-1 && self.redPage >= self.redChapter.pageCount-1) {//第一页 不能前翻
+                return;
+            }
             [moveView mas_remakeConstraints:^(MASConstraintMaker *make) {
                 
             }];
@@ -305,7 +327,7 @@ typedef NS_ENUM(NSInteger){
                 }];
 
                 [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.height.offset(132);
+                    make.height.offset(160);
                     make.leading.and.trailing.equalTo(self.view);
                     make.top.equalTo(self.view.mas_bottom);
                 }];
@@ -321,11 +343,10 @@ typedef NS_ENUM(NSInteger){
                     
                 }];
                 [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.height.offset(132);
+                    make.height.offset(160);
                     make.leading.and.trailing.equalTo(self.view);
                     make.bottom.equalTo(self.view.mas_bottom);
                 }];
-                
             }
             [self.navigationController setNavigationBarHidden:self.isSetting animated:YES];
             [[UIApplication sharedApplication] setStatusBarHidden:self.isSetting withAnimation:UIStatusBarAnimationSlide];
@@ -363,6 +384,18 @@ typedef NS_ENUM(NSInteger){
 }
 
 - (void)doRightAction:(id)sender{
+    //隐藏设置界面
+    self.isSetting = !self.isSetting;
+    [self.settingView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+    }];
+    [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(160);
+        make.leading.and.trailing.equalTo(self.view);
+        make.top.equalTo(self.view.mas_bottom);
+    }];
+    
+    self.txtModel.readChapter = [NSString stringWithFormat:@"%ld",self.redChapterCount];
     HRChapterListController *cha = [[HRChapterListController alloc] init];
     cha.allChapters = [self.helper selectAllChapter:self.txtModel.txtId];
     cha.txtModel = self.txtModel;
@@ -371,34 +404,69 @@ typedef NS_ENUM(NSInteger){
 
 #pragma mark HRDetailSettingViewDelegate
 - (void)hrDetailSettingWithSettingType:(SettingType)settingType{
-    
     if (settingType == SettingTypeFontAdd) {
         self.fontSize += 2;
-        
+        [self changeContentFont:self.fontSize];
     }else if(settingType == SettingTypeFontReduce){
         self.fontSize -= 2;
+        [self changeContentFont:self.fontSize];
+    }else if(settingType == SettingTypeUpChapter){
+        if (self.redChapterCount > 0) {
+            self.redChapterCount -= 1;
+        }
+        [self upOrNextChapter:self.redChapterCount];
+    }else if(settingType == SettingTypeNextChapter){
+        if (self.redChapterCount < [self.txtModel.allChapter integerValue]) {
+            self.redChapterCount += 1;
+        }
+        [self upOrNextChapter:self.redChapterCount];
+    }else if(settingType == SettingTypeGraSetting){
+        
+    }else if (settingType == SettingTypeLightStyle) {
+        [self changeReadModel:RGBA(245, 245, 245, 1) contentColor:RGBA(34, 34, 34, 1)];
+    }else if(settingType == SettingTypeBlackStyle){
+        [self changeReadModel:RGBA(34, 34, 34, 1) contentColor:RGBA(245, 245, 245, 1)];
+    }else if(settingType == SettingTypeEyeStyle){
+        [self changeReadModel:RGBA(159,223,176,1) contentColor:RGBA(34, 34, 34, 1)];
+    }else if(settingType == SettingTypeYellowStyle){
+        [self changeReadModel:[UIColor colorWithHexa:@"#9e902a"] contentColor:RGBA(34, 34, 34, 1)];
     }
-    
-    [self changeContentFont:self.fontSize];
 }
 
+- (void)changeReadModel:(UIColor *)backColor contentColor:(UIColor *)contentColor{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setValue:backColor forKey:@"readBack"];
+    [dic setValue:contentColor forKey:@"contentColor"];
+     NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
+    [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
+    [self.readDetailOne changeReadModel:backColor contentColor:contentColor];
+    [self.readDetailTwo changeReadModel:backColor contentColor:contentColor];
+    self.view.backgroundColor = backColor;
+    self.navigationController.tabBarController.view.backgroundColor = backColor;
+}
 
 - (void)changeContentFont:(CGFloat)fontSzie{
-
     [[NSUserDefaults standardUserDefaults] setFloat:fontSzie forKey:@"FontSize"];
     [self.readDetailOne.contect setFont:[UIFont systemFontOfSize:fontSzie]];
     [self.readDetailTwo.contect setFont:[UIFont systemFontOfSize:fontSzie]];
-    
-    NSString *notReadContent = [self.redChapter getTextWithPage:self.redPage];
-    self.redPage = 0;
-    for (NSInteger i = self.redPage;i<self.redChapter.pageCount; i++) {
-        notReadContent = [NSString stringWithFormat:@"%@%@",notReadContent,[self.redChapter getTextWithPage:i]];
+    NSString *notReadContent = @"";
+    if (self.redPage != (self.redChapter.pageCount-1)) {
+        for (NSInteger i = self.redPage;i<self.redChapter.pageCount; i++) {
+            notReadContent = [NSString stringWithFormat:@"%@%@",notReadContent,[self.redChapter getTextWithPage:i]];
+        }
     }
     self.redChapter.content = notReadContent;
 }
 
+- (void)upOrNextChapter:(NSInteger)chapter{
+    self.redPage = 0;
+    self.redChapter =[self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
+    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [self.readDetailTwo updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+}
+
 - (void)updateShowTextContent:(HRReadDetailView *)showView{
-    
+    self.redPage = 0;
     [showView updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
@@ -407,6 +475,7 @@ typedef NS_ENUM(NSInteger){
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation
