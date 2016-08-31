@@ -37,7 +37,7 @@
 -(NSString *)getDBPath
 {
     NSString *dbPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSLog(@"dbPath : %@",dbPath);
+//    NSLog(@"dbPath : %@",dbPath);
     NSString *DBPath = [dbPath stringByAppendingPathComponent:@"HostRrad.db"];//成员列表数据库
     return DBPath;
 }

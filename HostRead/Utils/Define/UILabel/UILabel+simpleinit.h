@@ -14,4 +14,5 @@
 
 -(id)initAttributeWithFrame:(CGRect)frame Font:(UIFont *)font TextColor:(UIColor *)textColor Text:(NSString *)text;
 -(id)initWithFont:(UIFont *)font TextColor:(UIColor *)textColor Text:(NSString *)text;
++ (void) alignLabelWithTop:(UILabel *)label;
 @end

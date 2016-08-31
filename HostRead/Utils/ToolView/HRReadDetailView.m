@@ -43,10 +43,10 @@
             make.height.offset(16);
         }];
         
-        self.contect = [[UILabel alloc] init];
+        self.contect = [[UITextView alloc] init];
+        self.contect.userInteractionEnabled = NO;
+        self.contect.backgroundColor = [UIColor clearColor];
         self.contect.textColor = [dic valueForKey:@"contentColor"];
-        self.contect.numberOfLines = 0;
-        self.contect.lineBreakMode = NSLineBreakByCharWrapping;
         self.contect.textAlignment = NSTextAlignmentLeft;
         self.contect.font = [UIFont systemFontOfSize:[[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"]];
         [self addSubview:self.contect];
@@ -109,26 +109,33 @@
 
 //当前系统时间
 -(NSString *)currentTimeString{
-    NSArray *infoArray = [[[[UIApplication sharedApplication] valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-    for (id info in infoArray)
-    {
-        if ([info isKindOfClass:NSClassFromString(@"UIStatusBarTimeItemView")])
-        
-        {
-            NSString *timeString = [info valueForKeyPath:@"timeString"];
-            if ([timeString hasSuffix:@"PM"]) {
-                NSArray *timeArray = [timeString componentsSeparatedByString:@":"];
-                NSString *hour = timeArray[0];
-                NSString *mintue = [timeArray[1] componentsSeparatedByString:@" "][0];
-                timeString = [NSString stringWithFormat:@"%ld:%@",[hour integerValue]+12,mintue];
-            }else{
-                timeString = [timeString componentsSeparatedByString:@" "][0];
-            }
-            NSLog(@"当前显示时间为：%@",timeString);
-            return timeString;
-        }
-    }
-    return @"";
+    
+    NSDateFormatter *dateFormatter =[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSString *currentDateStr = [dateFormatter stringFromDate:[NSDate date]];
+//    
+//     NSLog(@"currentDateStr：%@",currentDateStr);
+//    
+//    NSArray *infoArray = [[[[UIApplication sharedApplication] valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
+//    for (id info in infoArray)
+//    {
+//        if ([info isKindOfClass:NSClassFromString(@"UIStatusBarTimeItemView")])
+//        
+//        {
+//            NSString *timeString = [info valueForKeyPath:@"timeString"];
+//            if ([timeString hasSuffix:@"PM"]) {
+//                NSArray *timeArray = [timeString componentsSeparatedByString:@":"];
+//                NSString *hour = timeArray[0];
+//                NSString *mintue = [timeArray[1] componentsSeparatedByString:@" "][0];
+//                timeString = [NSString stringWithFormat:@"%ld:%@",[hour integerValue]+12,mintue];
+//            }else{
+//                timeString = [timeString componentsSeparatedByString:@" "][0];
+//            }
+//            NSLog(@"当前显示时间为：%@",timeString);
+//            return timeString;
+//        }
+//    }
+    return currentDateStr;
 }
 
 //获取电量的等级，0.00~1.00

@@ -36,4 +36,17 @@
     return self;
 }
 
+
++ (void) alignLabelWithTop:(UILabel *)label {
+    CGSize maxSize = CGSizeMake(label.frame.size.width, 999);
+    label.adjustsFontSizeToFitWidth = NO;
+//    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:13]};
+    // get actual height
+    CGSize actualSize = [label.text sizeWithFont:label.font constrainedToSize:maxSize lineBreakMode:label.lineBreakMode];
+//    CGSize actualSize = [label.text boundingRectWithSize:maxSize options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil];
+    CGRect rect = label.frame;
+    rect.size.height = actualSize.height;
+    label.frame = rect;
+}
+
 @end

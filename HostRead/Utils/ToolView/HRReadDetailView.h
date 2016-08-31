@@ -14,6 +14,6 @@
 
 - (void)changeReadModel:(UIColor *)backColor contentColor:(UIColor *)contentColor;
 
-@property (nonatomic, strong) UILabel *contect;
+@property (nonatomic, strong) UITextView *contect;
 
 @end

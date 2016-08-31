@@ -466,7 +466,7 @@ typedef NS_ENUM(NSInteger){
 }
 
 - (void)updateShowTextContent:(HRReadDetailView *)showView{
-    self.redPage = 0;
+//    self.redPage = 0;
     [showView updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 

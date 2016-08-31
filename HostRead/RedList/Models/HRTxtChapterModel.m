@@ -21,14 +21,14 @@
     _content = content;
     float fontSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"];
     NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithCapacity:fontSize];
-    UIFont * font = [UIFont fontWithName:@"Arial" size:fontSize];
+    UIFont * font = [UIFont systemFontOfSize:fontSize];
     [attributes setValue:font forKey:NSFontAttributeName];
     [attributes setValue:@(2.0) forKey:NSKernAttributeName];
     
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineSpacing = 1.0;
     [attributes setValue:paragraphStyle forKey:NSParagraphStyleAttributeName];
-    [self paginationWithAttributes:attributes constrainedToSize:CGSizeMake(ScreenWidth-kLeftMargin-kRightMargin, ScreenHeight-kTopMargin-kBottonMargin)];
+    [self paginationWithAttributes:attributes constrainedToSize:CGRectMake(kLeftMargin, kTopMargin, ScreenWidth-kLeftMargin-kRightMargin, ScreenHeight-kTopMargin-kBottonMargin)];
 }
 
 /**
@@ -37,9 +37,9 @@
  * @param    attributes  分页所需的字符串样式,需要指定字体大小,行间距等。iOS6.0以上请参见UIKit中NSAttributedString的扩展,iOS6.0以下请参考CoreText中的CTStringAttributes.h
  * @param    size        需要参考的size。即在size区域内
  */
-- (NSArray *) paginationWithAttributes:(NSDictionary *) attributes constrainedToSize:(CGSize) size  {
+- (NSArray *) paginationWithAttributes:(NSDictionary *) attributes constrainedToSize:(CGRect) rect  {
     NSMutableArray * resultRange = [NSMutableArray arrayWithCapacity:5];
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+//    CGRect rect = CGRectMake(kLeftMargin, kTopMargin, size.width, size.height);
     // 构造NSAttributedString
     NSAttributedString * attributedString = [[NSAttributedString alloc] initWithString:_content attributes:attributes];
     //    以下方法耗时 基本再 0.5s 以内
