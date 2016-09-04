@@ -65,9 +65,6 @@
     NSInteger txtId = [self.helper instertTxtInfo:txtName floderName:floderName allChapter:match.count];
     if (match.count != 0)
     {
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            
-        });
         __block NSRange lastRange = NSMakeRange(0, 0);
         [match enumerateObjectsUsingBlock:^(NSTextCheckingResult *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
