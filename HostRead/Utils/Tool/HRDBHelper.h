@@ -13,11 +13,15 @@
 
 - (BOOL)haveThisTxt:(NSString *)txtName;
 
-- (NSInteger)instertTxtInfo:(NSString *)txtName allChapter:(NSInteger)allChapter;
+- (NSInteger)instertTxtInfo:(NSString *)txtName floderName:(NSString *)floderName allChapter:(NSInteger)allChapter;
 
 - (HRTxtModel *)selectReadTxt:(NSString *)txtName;
 
 - (void)updateSliderWitnTxtId:(NSString *)txtId readPage:(NSInteger)page readChapter:(NSInteger)chapter;
+
+- (NSMutableArray *)selectAllTxtFileWithFloder:(NSString *)floderName;
+
+- (BOOL)deleteTxtWithName:(NSString *)txtName;
 
 #pragma mark
 - (void)insertChaptersIdx:(NSInteger)idx title:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId;

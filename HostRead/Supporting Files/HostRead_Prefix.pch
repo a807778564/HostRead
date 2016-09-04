@@ -13,6 +13,7 @@
 
 #import "Masonry.h"
 #import "FMDB.h"
+#import "MBProgressHUD.h"
 
 #import "UIColor+ColorWithHex.h"
 #import "UIImage+Color.h"
@@ -22,6 +23,7 @@
 
 #import "HRReadTool.h"
 #import "HRDBHelper.h"
+#import "AppDelegate.h"
 
 
 #define mainColor [UIColor colorWithHexa:@"#00bb9c"]
@@ -32,7 +34,7 @@
 #define ScreenHeight [[UIScreen mainScreen] bounds].size.height
 
 #define kTopMargin 34
-#define kBottonMargin 24
+#define kBottonMargin 34
 #define kLeftMargin 16
 #define kRightMargin 16
 

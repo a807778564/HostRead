@@ -12,6 +12,10 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
++ (AppDelegate *)sharedDelegate;
 
+- (void)showLoadingHUD:(NSString *)msg;
+
+- (void)hidHUD;
 @end
 

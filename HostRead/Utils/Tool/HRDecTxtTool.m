@@ -21,11 +21,12 @@
 - (HRTxtModel *)decoWithUrl:(NSURL *)txtUrl{
     self.helper = [[HRDBHelper alloc] init];
     NSString *key = [txtUrl.path lastPathComponent];
-    
+    NSArray *allFloder = [txtUrl.path componentsSeparatedByString:@"/"];
+    NSString *floderName = allFloder[allFloder.count-2];
     if (![self.helper haveThisTxt:key]) {
         if ([[key pathExtension] isEqualToString:@"txt"]) {
             NSMutableArray *chapterArray = [[NSMutableArray alloc] init];
-            [self separateChapter:&chapterArray content:[self encodeWithURL:txtUrl] txtName:key];
+            [self separateChapter:&chapterArray content:[self encodeWithURL:txtUrl] txtName:key floderName:floderName];
             return [self.helper selectReadTxt:key];
         }else{
             @throw [NSException exceptionWithName:@"FileException" reason:@"文件格式错误" userInfo:nil];
@@ -54,17 +55,19 @@
     
 }
 
--(void)separateChapter:(NSMutableArray **)chapters content:(NSString *)content txtName:(NSString *)txtName
+-(void)separateChapter:(NSMutableArray **)chapters content:(NSString *)content txtName:(NSString *)txtName floderName:(NSString *)floderName
 {
     [*chapters removeAllObjects];
     NSString *parten = @"第[0-9一二三四五六七八九十百千]*[章卷回].*";
     NSError* error = NULL;
     NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:NSRegularExpressionCaseInsensitive error:&error];
-    
     NSArray* match = [reg matchesInString:content options:NSMatchingReportCompletion range:NSMakeRange(0, [content length])];
-    NSInteger txtId = [self.helper instertTxtInfo:txtName allChapter:match.count];
+    NSInteger txtId = [self.helper instertTxtInfo:txtName floderName:floderName allChapter:match.count];
     if (match.count != 0)
     {
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            
+        });
         __block NSRange lastRange = NSMakeRange(0, 0);
         [match enumerateObjectsUsingBlock:^(NSTextCheckingResult *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             

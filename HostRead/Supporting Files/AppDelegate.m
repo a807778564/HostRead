@@ -13,12 +13,15 @@
 
 #define tabCount 3
 
-@interface AppDelegate ()
-
+@interface AppDelegate ()<MBProgressHUDDelegate>
+@property (nonatomic, strong) MBProgressHUD *HUD;
 @end
 
 @implementation AppDelegate
 
++ (AppDelegate *)sharedDelegate{
+    return (AppDelegate *)[[UIApplication sharedApplication] delegate];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -42,7 +45,6 @@
     
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageWithColor:[UIColor whiteColor] Size:CGSizeMake([[UIScreen mainScreen] bounds].size.width/tabCount, 49) Alpha:0.2]];
     //tab 字体颜色 00bb9c
-    
     return YES;
 }
 
@@ -93,6 +95,27 @@
     UIImage *image = [UIImage imageNamed:_name];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return image;
+}
+
+- (void)showLoadingHUD:(NSString *)msg{
+    self.HUD = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+    self.HUD.mode = MBProgressHUDModeIndeterminate;
+    self.HUD.labelText = msg;
+    [self.window addSubview:self.HUD];
+    self.HUD.color = RGBA(104, 104, 104, .7f);
+    self.HUD.delegate = self;
+    self.HUD.labelFont = [UIFont systemFontOfSize:12];
+    [self.HUD show:YES];
+}
+
+- (void)hidHUD{
+    [self.HUD hide:YES];
+}
+
+#pragma mark - hud delegate
+- (void)hudWasHidden:(MBProgressHUD *)_hud {
+    [self.HUD removeFromSuperview];
+    self.HUD = nil;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

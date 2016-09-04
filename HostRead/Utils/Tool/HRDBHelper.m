@@ -19,7 +19,7 @@
         FMDatabase *db = [self getBase];
         if ([db open]) {
             //如果数据库没有城市信息的表格  新建一个
-            NSString *createSearchHistory = @"CREATE TABLE IF NOT EXISTS 'table_txt' ('txtId' INTEGER PRIMARY KEY AUTOINCREMENT, 'txtName' VARCHAR NOT NULL, 'redPage' VARCHAR NOT NULL , 'readChapter' VARCHAR NOT NULL, 'allChapter' INTEGER )";
+            NSString *createSearchHistory = @"CREATE TABLE IF NOT EXISTS 'table_txt' ('txtId' INTEGER PRIMARY KEY AUTOINCREMENT, 'txtName' VARCHAR NOT NULL, 'floderName' VARCHAR NOT NULL, 'redPage' VARCHAR NOT NULL , 'readChapter' VARCHAR NOT NULL, 'allChapter' INTEGER )";
             [db executeUpdate:createSearchHistory];
             //新建本地兑换单数据表格
             NSString *createIntallMallList = @"CREATE TABLE IF NOT EXISTS 'table_chapters' ('chapterid' INTEGER PRIMARY KEY AUTOINCREMENT, idx INTEGER, 'title' VARCHAR NOT NULL, 'content' VARCHAR NOT NULL,'txtId' INTEGER,FOREIGN KEY(txtId) REFERENCES table_txt(txtId))";
@@ -56,12 +56,12 @@
 }
 
 #pragma mark table_txt 文件操作
-- (NSInteger)instertTxtInfo:(NSString *)txtName allChapter:(NSInteger)allChapter{
+- (NSInteger)instertTxtInfo:(NSString *)txtName floderName:(NSString *)floderName allChapter:(NSInteger)allChapter{
     FMResultSet *result = [[FMResultSet alloc] init];
     FMDatabase *db = [self getBase];
     NSInteger insetId = 0;
     if ([db open]) {
-        BOOL insert = [db executeUpdate:@"insert into table_txt(txtName,redPage,readChapter,allChapter)values(?,'0','0',?)",txtName,[NSNumber numberWithInteger:allChapter]];
+        BOOL insert = [db executeUpdate:@"insert into table_txt(txtName,floderName,redPage,readChapter,allChapter)values(?,?,'0','0',?)",txtName,floderName,[NSNumber numberWithInteger:allChapter]];
         if (insert) {
             result = [db executeQuery:@"select last_insert_rowid() from table_txt"];
             if ([result next]) {
@@ -94,19 +94,19 @@
     FMResultSet *result = [[FMResultSet alloc] init];
     FMDatabase *db = [self getBase];
     if ([db open]) {
-        result = [db executeQuery:@"select txtId,txtName,redPage,readChapter,allChapter from table_txt where txtName=?",txtName];
+        result = [db executeQuery:@"select txtId,txtName,floderName,redPage,readChapter,allChapter from table_txt where txtName=?",txtName];
         if ([result next]) {
             txt.txtId = [result stringForColumn:@"txtId"];
             txt.txtName = [result stringForColumn:@"txtName"];
             txt.redPage = [result stringForColumn:@"redPage"];
             txt.readChapter = [result stringForColumn:@"readChapter"];
             txt.allChapter = [result stringForColumn:@"allChapter"];
+            txt.floderName = [result stringForColumn:@"floderName"];
         }
     }
     [db close];
     return txt;
 }
-
 
 - (void)updateSliderWitnTxtId:(NSString *)txtId readPage:(NSInteger)page readChapter:(NSInteger)chapter{
     FMDatabase *db =[self getBase];
@@ -114,6 +114,41 @@
        [db executeUpdate:@"update table_txt set redPage=?, readChapter=? where txtId=?",[NSNumber numberWithInteger:page],[NSNumber numberWithInteger:chapter],txtId];
     }
     [db close];
+}
+
+- (NSMutableArray *)selectAllTxtFileWithFloder:(NSString *)floderName{
+    NSMutableArray *txtArray = [[NSMutableArray alloc] init];
+    FMResultSet *result = [[FMResultSet alloc] init];
+    FMDatabase *db = [self getBase];
+    if ([db open]) {
+        result = [db executeQuery:@"select txtId,txtName,floderName,redPage,readChapter,allChapter from table_txt where floderName=?",floderName];
+        if ([result next]) {
+            HRTxtModel *txt = [[HRTxtModel alloc] init];
+            txt.txtId = [result stringForColumn:@"txtId"];
+            txt.txtName = [result stringForColumn:@"txtName"];
+            txt.redPage = [result stringForColumn:@"redPage"];
+            txt.readChapter = [result stringForColumn:@"readChapter"];
+            txt.allChapter = [result stringForColumn:@"allChapter"];
+            txt.floderName = [result stringForColumn:@"floderName"];
+            [txtArray addObject:txt];
+        }
+    }
+    [db close];
+    return txtArray;
+}
+
+- (BOOL)deleteTxtWithName:(NSString *)txtName{
+    BOOL delete = false;
+    HRTxtModel *model = [self selectReadTxt:txtName];
+    FMDatabase *db = [self getBase];
+    if ([db open]) {
+        BOOL isDeletx = [db executeUpdate:@"delete from table_chapters where txtId=?",model.txtId];
+        if (isDeletx) {
+            delete = [db executeUpdate:@"delete from table_txt where txtId=?",model.txtId];
+        }
+    }
+    [db close];
+    return delete;
 }
 
 #pragma mark table_chapters操作

@@ -12,6 +12,7 @@
 #import "HRTxtModel.h"
 #import "HRReadDetailController.h"
 #import "HRDecTxtTool.h"
+#import "HRTxtModel.h"
 
 @interface HRRedListController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -20,6 +21,8 @@
 @property (nonatomic, strong) NSMutableArray *fileList;
 
 @property (nonatomic, strong) NSMutableArray *floderList;
+
+@property (nonatomic, strong) HRDBHelper *helper;
 
 @end
 
@@ -34,6 +37,8 @@
     }else{
         self.title = @"全部文件";
     }
+    self.helper = [[HRDBHelper alloc] init];
+    
     self.fileTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.fileTable.dataSource = self;
     self.fileTable.delegate = self;
@@ -55,9 +60,24 @@
 }
 
 - (void)loadFileData{
+    NSArray *allFloder = [self.floderPath componentsSeparatedByString:@"/"];
+    NSString *floderName = allFloder[allFloder.count-1];
+    __block BOOL isDelete = YES;
     [[HRReadTool shareInstance] getHostFileListWithPath:self.floderPath fileInfo:^(NSMutableArray *floderList, NSMutableArray *fileList) {
         self.floderList = floderList;
         self.fileList = fileList;
+        for (HRTxtModel *txt in [self.helper selectAllTxtFileWithFloder:floderName]) {
+            for (NSString *fileName in self.fileList){
+                if ([txt.txtName isEqualToString:fileName]) {
+                    isDelete = false;
+                }
+            }
+            if (isDelete) {
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{//开启子线程执行数据库删除动作
+                    [self.helper deleteTxtWithName:txt.txtName];
+                });
+            }
+        }
         [self.fileTable reloadData];
     }];
 }
@@ -90,9 +110,22 @@
     }
     //添加一个删除按钮
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        if (indexPath.row < self.floderList.count) {
+            
+        }else{
+            [[AppDelegate sharedDelegate] showLoadingHUD:@""];
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                // 处理读取txt耗时操作
+                [self.helper deleteTxtWithName:self.fileList[indexPath.row-self.floderList.count]];
+                //通知主线程刷新
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[AppDelegate sharedDelegate] hidHUD];
+                    [[HRReadTool shareInstance] removeItem:path];
+                    [self loadFileData];
+                });
+            });
+        }
         
-        [[HRReadTool shareInstance] removeItem:path];
-        [self loadFileData];
     }];
     
     //添加一个移动
@@ -137,25 +170,23 @@
         list.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:list animated:YES];
     }else{
+        [[AppDelegate sharedDelegate] showLoadingHUD:@""];
         NSString *plistPath = [NSString stringWithFormat:@"%@/%@",self.floderPath,self.fileList[indexPath.row-self.floderList.count]];
         NSURL *url = [NSURL fileURLWithPath:plistPath];
-        HRTxtModel *model = [[[HRDecTxtTool alloc] init] decoWithUrl:url];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            // 处理读取txt耗时操作
+            HRTxtModel *model = [[[HRDecTxtTool alloc] init] decoWithUrl:url];
+            //通知主线程刷新
+            dispatch_async(dispatch_get_main_queue(), ^{
+                HRReadDetailController *detail = [[HRReadDetailController alloc] init];
+                detail.hidesBottomBarWhenPushed = YES;
+                detail.txtModel  = model;
+                [self.navigationController pushViewController:detail animated:YES];
+                [[AppDelegate sharedDelegate] hidHUD];
+            }); 
+            
+        });
         
-//        HRTxtModel *model =  [[HRTxtModel alloc] getTxtModelWith:url];
-        HRReadDetailController *detail = [[HRReadDetailController alloc] init];
-        detail.hidesBottomBarWhenPushed = YES;
-        detail.txtModel  = model;
-        [self.navigationController pushViewController:detail animated:YES];
-//        NSLog(@"aaaaaaa");
-        
-//        NSString *plistPath = [NSString stringWithFormat:@"%@/%@",self.floderPath,self.fileList[indexPath.row-self.floderList.count]];
-//        //gbk编码 如果txt文件为utf-8的则使用NSUTF8StringEncoding
-//        NSStringEncoding gbk = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-//        //定义字符串接收从txt文件读取的内容
-//        NSString *str = [[NSString alloc] initWithContentsOfFile:plistPath encoding:gbk error:nil];
-//        //将字符串转为nsdata类型
-//        NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-
     }
 }
 

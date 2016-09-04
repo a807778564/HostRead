@@ -21,4 +21,6 @@
 
 @property (nonatomic, strong) NSString *allChapter;
 
+@property (nonatomic, strong) NSString *floderName;//所在文件夹名
+
 @end
