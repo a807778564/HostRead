@@ -100,9 +100,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.pro += [center.userInfo[@"progressvalue"] floatValue];
         self.progress.progress = self.pro;
-        NSLog(@"%.2f self.pro",self.pro);
         if (self.pro >= 0.99) {
-            NSLog(@"end");
             self.pro = 0;
             self.progress.progress = 0;
         }

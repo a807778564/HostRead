@@ -68,7 +68,7 @@
         __block NSRange lastRange = NSMakeRange(0, 0);
         [match enumerateObjectsUsingBlock:^(NSTextCheckingResult *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
-            NSLog(@"index %ld",idx);
+//            NSLog(@"index %ld",idx);
             
             NSRange range = [obj range];
             NSInteger local = range.location;
