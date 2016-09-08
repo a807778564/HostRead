@@ -13,6 +13,7 @@
 #import "HRReadDetailController.h"
 #import "HRDecTxtTool.h"
 #import "HRTxtModel.h"
+#import "HRHttpController.h"
 
 @interface HRRedListController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -32,6 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setRightBtn];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithIcon:@"nav_wifi" highlightedIcon:@"nav_wifi" target:self action:@selector(doLeftAction:)];
     if (self.floderName) {
         self.title = self.floderName;
     }else{
@@ -205,6 +207,14 @@
         // 可以在这里对textfield进行定制，例如改变背景色
     }];
     [self presentViewController:addFloder animated:YES completion:^{
+        
+    }];
+}
+
+- (void)doLeftAction:(id)sender{
+    HRHttpController *http  = [[HRHttpController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:http];
+    [self presentViewController:nav animated:YES completion:^{
         
     }];
 }

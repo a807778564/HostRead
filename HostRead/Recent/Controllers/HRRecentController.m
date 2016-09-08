@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"最近阅读";
+    
     // Do any additional setup after loading the view.
 }
 
