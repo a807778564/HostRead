@@ -26,7 +26,7 @@
     [attributes setValue:@(2.0) forKey:NSKernAttributeName];
     
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 1.0;
+    paragraphStyle.lineSpacing = 1;
     [attributes setValue:paragraphStyle forKey:NSParagraphStyleAttributeName];
     [self paginationWithAttributes:attributes constrainedToSize:CGRectMake(kLeftMargin, kTopMargin, ScreenWidth-kLeftMargin-kRightMargin, ScreenHeight-kTopMargin-kBottonMargin)];
 }
@@ -62,7 +62,7 @@
         CFRelease(childFramesetter);
     } while (rangeIndex < attributedString.length && attributedString.length > 0);
     //    NSTimeInterval millionSecond = [[NSDate date] timeIntervalSinceDate:date];
-    //    // NSLog(@"耗时 %lf", millionSecond);
+        // NSLog(@"耗时 %lf", millionSecond);
     self.pageCount = resultRange.count;
     self.chapterRange = resultRange;
     return resultRange;
