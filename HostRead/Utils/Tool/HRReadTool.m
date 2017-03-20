@@ -155,7 +155,42 @@
         NSLog(@"获取图片失败");
     }
     return getImage;
+}
+
+/**
+ *  计算文本高度
+ *
+ *  @param text       文本内容
+ *  @param number     行数
+ *  @param width      文本宽度
+ *  @param heightLine 行间距
+ *  @param headerLine 首行缩进多少
+ *  @param labelInfo  返回处理好的信息
+ */
++(void)getSizeWithText:(NSString *)text labelInfo:(labelSizeAndTextBlk)labelInfo{
     
+    if (text == nil) {
+        text = @"暂无简介";
+    }
+    
+    UILabel *label = [[UILabel alloc] init];
+    label.text = text;
+    label.numberOfLines = 0;
+    label.font = [UIFont systemFontOfSize:[[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"]];
+    
+    //UILabel设置行间距等属性：
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc]initWithString:label.text];;
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc]init];
+    [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
+    [paragraphStyle setLineSpacing:5];//行间距
+    [paragraphStyle setFirstLineHeadIndent:0];//首行缩进
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, label.text.length)];
+    
+    label.attributedText = attributedString;
+    
+    //宽度不变，根据字的多少计算label的高度
+    labelInfo([label sizeThatFits:CGSizeMake(ScreenWidth-kLeftMargin-kRightMargin, MAXFLOAT)],attributedString);
 }
 
 @end

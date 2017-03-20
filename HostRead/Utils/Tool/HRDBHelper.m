@@ -73,6 +73,17 @@
     return insetId;
 }
 
+- (void)updateTxtAllChapter:(NSInteger)allChapter txtId:(NSInteger)textId{
+    FMDatabase *db = [self getBase];
+    if ([db open]) {
+        BOOL insert = [db executeUpdate:@"update table_txt set allChapter = ? where txtId=?",[NSNumber numberWithInteger:allChapter],@(textId)];
+        if (insert) {
+            NSLog(@"allchapter update success");
+        }
+    }
+    [db close];
+}
+
 - (BOOL)haveThisTxt:(NSString *)txtName{
     BOOL ishave = false;
     FMResultSet *result = [[FMResultSet alloc] init];
@@ -152,15 +163,20 @@
 }
 
 #pragma mark table_chapters操作
-- (void)insertChaptersIdx:(NSInteger)idx title:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId{
+- (BOOL)insertChaptersIdx:(NSInteger)idx title:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId{
+    if (content.length <50) {
+        return NO;
+    }
     FMDatabase *db = [self getBase];
     if ([db open]) {
         BOOL insert = [db executeUpdate:@"insert into table_chapters(idx,title,content,txtId)values(?,?,?,?)",[NSNumber numberWithInteger:idx],title,content,[NSNumber numberWithInteger:[txtId integerValue]]];
         if (insert) {
             NSLog(@"success");
+            return YES;
         }
     }
     [db close];
+    return NO;
 }
 
 - (HRTxtChapterModel *)selectChapterModelWithChapterCount:(NSInteger)chapterCount txtId:(NSString *)txtId{
@@ -193,12 +209,13 @@
     return dic;
 }
 
-- (NSMutableArray *)selectAllChapter:(NSString *)txtId{
+- (NSMutableArray *)selectAllChapter:(NSString *)txtId page:(NSInteger)page{
     NSMutableArray *titleArray = [[NSMutableArray alloc] init];
     FMResultSet *result = [[FMResultSet alloc] init];
     FMDatabase *db = [self getBase];
     if ([db open]) {
-        result = [db executeQuery:@"select chapterid,title from table_chapters where txtId=?",txtId];
+//        result = [db executeQuery:@"select chapterid,title from table_chapters where txtId=?",txtId];
+        result = [db executeQuery:@"select chapterid,title from table_chapters limit 30 offset ?",([txtId integerValue]-1)*page];
         while ([result next]) {
             NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
             [dic setValue:[result stringForColumn:@"chapterid"] forKey:@"chapterid"];

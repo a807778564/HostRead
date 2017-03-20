@@ -85,6 +85,7 @@
 		2C7A08E11D6ACD380027B1B5 /* HRBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08E01D6ACD380027B1B5 /* HRBaseController.m */; };
 		2C7A08E81D6ACE270027B1B5 /* HRRedListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08E71D6ACE270027B1B5 /* HRRedListController.m */; };
 		2C7A08EB1D6ACE510027B1B5 /* HRSsettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08EA1D6ACE510027B1B5 /* HRSsettingController.m */; };
+		2CAB03FF1E77DDAD004D61C7 /* HRTextCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB03FE1E77DDAD004D61C7 /* HRTextCollectionCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -244,6 +245,8 @@
 		2C7A08E91D6ACE510027B1B5 /* HRSsettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRSsettingController.h; sourceTree = "<group>"; };
 		2C7A08EA1D6ACE510027B1B5 /* HRSsettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRSsettingController.m; sourceTree = "<group>"; };
 		2C7A08F01D6AD2390027B1B5 /* HostRead_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostRead_Prefix.pch; sourceTree = "<group>"; };
+		2CAB03FD1E77DDAD004D61C7 /* HRTextCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRTextCollectionCell.h; sourceTree = "<group>"; };
+		2CAB03FE1E77DDAD004D61C7 /* HRTextCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRTextCollectionCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -437,6 +440,8 @@
 			children = (
 				2C4632321D742F9000AC062E /* HRDetailSettingView.h */,
 				2C4632331D742F9000AC062E /* HRDetailSettingView.m */,
+				2CAB03FD1E77DDAD004D61C7 /* HRTextCollectionCell.h */,
+				2CAB03FE1E77DDAD004D61C7 /* HRTextCollectionCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -733,6 +738,7 @@
 					2C7A08AC1D6ACBA30027B1B5 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 784U2EBW65;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -816,6 +822,7 @@
 				2C76B6C11D6AF8F60052CCF8 /* MASConstraintMaker.m in Sources */,
 				2C4632311D7423D100AC062E /* UIImage+ImageEffects.m in Sources */,
 				2C41AAEA1D6F0719007CE67E /* HRDecTxtTool.m in Sources */,
+				2CAB03FF1E77DDAD004D61C7 /* HRTextCollectionCell.m in Sources */,
 				2C453E0E1D6D411E0061B535 /* HRTxtChapterModel.m in Sources */,
 				2C44FBF91D7FE6090042CE34 /* DDAbstractDatabaseLogger.m in Sources */,
 				2C44FBF81D7FE6090042CE34 /* DDRange.m in Sources */,
@@ -965,6 +972,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.homedo.HostRead;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "43d8f4c7-d8bd-400c-8c4d-37263a643790";
+				PROVISIONING_PROFILE_SPECIFIER = DevForHomedo;
 			};
 			name = Debug;
 		};
@@ -972,7 +981,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 784U2EBW65;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = "HostRead/Supporting Files/HostRead_Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/HostRead/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

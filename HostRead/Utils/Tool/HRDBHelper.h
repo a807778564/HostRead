@@ -15,6 +15,8 @@
 
 - (NSInteger)instertTxtInfo:(NSString *)txtName floderName:(NSString *)floderName allChapter:(NSInteger)allChapter;
 
+- (void)updateTxtAllChapter:(NSInteger)allChapter txtId:(NSInteger)textId;
+
 - (HRTxtModel *)selectReadTxt:(NSString *)txtName;
 
 - (void)updateSliderWitnTxtId:(NSString *)txtId readPage:(NSInteger)page readChapter:(NSInteger)chapter;
@@ -24,11 +26,11 @@
 - (BOOL)deleteTxtWithName:(NSString *)txtName;
 
 #pragma mark
-- (void)insertChaptersIdx:(NSInteger)idx title:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId;
+- (BOOL)insertChaptersIdx:(NSInteger)idx title:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId;
 
 - (HRTxtChapterModel *)selectChapterModelWithChapterCount:(NSInteger)chapterCount txtId:(NSString *)txtId;
 
 - (NSMutableDictionary *)chapterTitleWithTxtId:(NSString *)txtId chaperIdx:(NSInteger)idx;
 
-- (NSMutableArray *)selectAllChapter:(NSString *)txtId;
+- (NSMutableArray *)selectAllChapter:(NSString *)txtId page:(NSInteger)page;
 @end

@@ -38,6 +38,13 @@
 #define kLeftMargin 16
 #define kRightMargin 16
 
+//只在Debug模式下执行NSLog
+#ifndef __OPTIMIZE__
+//#define NSLog(fmt, ...) NSLog((@"[文件名:%s]\n" "[函数名:%s]\n" "[行号:%d] \n" fmt"\n\n"), __FILE__, __FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+#define NSLog(...) {}
+#endif
+
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 

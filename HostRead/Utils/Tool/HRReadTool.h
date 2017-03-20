@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+typedef void (^labelSizeAndTextBlk)(CGSize size , NSAttributedString *text);
 /**
  *  获取数据的block
  *
@@ -30,4 +30,5 @@ typedef void(^HostFileList)(NSMutableArray *floderList, NSMutableArray *fileList
 
 - (void)renameFileName:(NSString *)oldName newName:(NSString *)newName;
 
++(void)getSizeWithText:(NSString *)text labelInfo:(labelSizeAndTextBlk)labelInfo;
 @end

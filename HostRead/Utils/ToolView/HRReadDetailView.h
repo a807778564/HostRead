@@ -10,7 +10,7 @@
 
 @interface HRReadDetailView : UIView
 
-- (void)updateContent:(NSString *)content title:(NSString *)title page:(NSString *)page;
+- (void)updateContent:(NSString *)content conAtt:(NSMutableDictionary *)conAtt title:(NSString *)title page:(NSString *)page;
 
 - (void)changeReadModel:(UIColor *)backColor contentColor:(UIColor *)contentColor;
 

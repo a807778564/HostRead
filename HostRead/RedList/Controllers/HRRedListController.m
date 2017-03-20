@@ -212,6 +212,10 @@
 }
 
 - (void)doLeftAction:(id)sender{
+    if (![self.title isEqualToString:@"全部文件"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
     HRHttpController *http  = [[HRHttpController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:http];
     [self presentViewController:nav animated:YES completion:^{

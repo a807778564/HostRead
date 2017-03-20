@@ -40,6 +40,7 @@
         [self.titleTxt mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(8);
             make.leading.equalTo(self.mas_leading).offset(kLeftMargin);
+            make.trailing.equalTo(self.mas_trailing).offset(-kLeftMargin);
             make.height.offset(16);
         }];
         
@@ -47,21 +48,22 @@
         self.contect.userInteractionEnabled = NO;
         self.contect.backgroundColor = [UIColor clearColor];
         self.contect.textColor = [dic valueForKey:@"contentColor"];
-        self.contect.textAlignment = NSTextAlignmentLeft;
+        NSLog(@"padding %.2f",self.contect.textContainer.lineFragmentPadding);
+//        self.contect.textAlignment = NSTextAlignmentCenter;
         self.contect.font = [UIFont systemFontOfSize:[[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"]];
         [self addSubview:self.contect];
         [self.contect mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.titleTxt.mas_bottom).offset(10);
             make.leading.equalTo(self.mas_leading).offset(kLeftMargin);
-            make.trailing.equalTo(self.mas_trailing).offset(-kRightMargin);
+            make.trailing.equalTo(self.mas_trailing).offset(-kLeftMargin);
         }];
-        
+
         self.batter = [[HRBatteryView alloc] init];
         [self addSubview:self.batter];
         [self.batter mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contect.mas_bottom);
             make.bottom.equalTo(self.mas_bottom);
-            make.leading.equalTo(self.contect.mas_leading);
+            make.leading.equalTo(self.contect.mas_leading).offset(kLeftMargin);
             make.height.equalTo(@24);
             make.width.equalTo(@23);
         }];
@@ -82,16 +84,18 @@
         self.pageLabel.text = @"0/0";
         [self addSubview:self.pageLabel];
         [self.pageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.trailing.equalTo(self.contect.mas_trailing);
+            make.trailing.equalTo(self.contect.mas_trailing).offset(-kRightMargin);
             make.centerY.equalTo(self.batter.mas_centerY);
         }];
     }
     return self;
 }
 
-- (void)updateContent:(NSString *)content title:(NSString *)title page:(NSString *)page{
+- (void)updateContent:(NSString *)content conAtt:(NSMutableDictionary *)conAtt title:(NSString *)title page:(NSString *)page{
     self.contect.text = @"";
-    self.contect.text = content;
+    NSAttributedString * attributedString = [[NSAttributedString alloc] initWithString:content attributes:conAtt];
+//    [self.contect.textStorage appendAttributedString:attributedString];
+    self.contect.attributedText = attributedString;
     self.titleTxt.text = title;
     self.pageLabel.text = page;
     self.timeLabel.text = [self currentTimeString];
@@ -109,32 +113,9 @@
 
 //当前系统时间
 -(NSString *)currentTimeString{
-    
     NSDateFormatter *dateFormatter =[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"];
     NSString *currentDateStr = [dateFormatter stringFromDate:[NSDate date]];
-//    
-//     NSLog(@"currentDateStr：%@",currentDateStr);
-//    
-//    NSArray *infoArray = [[[[UIApplication sharedApplication] valueForKeyPath:@"statusBar"] valueForKeyPath:@"foregroundView"] subviews];
-//    for (id info in infoArray)
-//    {
-//        if ([info isKindOfClass:NSClassFromString(@"UIStatusBarTimeItemView")])
-//        
-//        {
-//            NSString *timeString = [info valueForKeyPath:@"timeString"];
-//            if ([timeString hasSuffix:@"PM"]) {
-//                NSArray *timeArray = [timeString componentsSeparatedByString:@":"];
-//                NSString *hour = timeArray[0];
-//                NSString *mintue = [timeArray[1] componentsSeparatedByString:@" "][0];
-//                timeString = [NSString stringWithFormat:@"%ld:%@",[hour integerValue]+12,mintue];
-//            }else{
-//                timeString = [timeString componentsSeparatedByString:@" "][0];
-//            }
-//            NSLog(@"当前显示时间为：%@",timeString);
-//            return timeString;
-//        }
-//    }
     return currentDateStr;
 }
 

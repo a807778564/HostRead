@@ -25,7 +25,11 @@ typedef NS_ENUM(NSInteger){
 
 @interface HRReadDetailController ()<HRDetailSettingViewDelegate>
 
-@property (nonatomic, strong) HRTxtChapterModel *redChapter;
+@property (nonatomic, strong) HRTxtChapterModel *upChapter;//上一章节
+
+@property (nonatomic, strong) HRTxtChapterModel *redChapter;//正在阅读的章节
+
+@property (nonatomic, strong) HRTxtChapterModel *nextChapter;//下一章节
 
 @property (nonatomic, assign) NSInteger redPage;//已读页数
 
@@ -117,7 +121,15 @@ typedef NS_ENUM(NSInteger){
     }
     self.redChapterCount = [self.txtModel.readChapter integerValue];
     self.redChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
-    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    dispatch_async(dispatch_queue_create("LoadOtherChapter", NULL), ^{
+        if (self.redChapterCount<= [self.txtModel.allChapter integerValue]) {
+            self.nextChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount+1 txtId:self.txtModel.txtId];
+        }
+        if (self.redChapterCount > 0) {
+            self.upChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount-1 txtId:self.txtModel.txtId];
+        }
+    });
 }
 
 - (void)updateContent:(Direction)direction showPage:(HRReadDetailView *)pageView{
@@ -126,17 +138,21 @@ typedef NS_ENUM(NSInteger){
         if (self.redPage >= self.redChapter.pageCount && self.redChapterCount<= [self.txtModel.allChapter integerValue]) {
             self.redPage = 0;
             self.redChapterCount += 1;
-            self.redChapter =[self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
+            self.upChapter = self.redChapter;
+            self.redChapter =self.nextChapter;
+            dispatch_async(dispatch_queue_create("LoadOtherChapter", NULL), ^{self.nextChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount+1 txtId:self.txtModel.txtId];});
         }
     }else if(direction == Direction_right){//上一页
         self.redPage -= 1;
         if (self.redPage < 0 && self.redChapterCount > 0) {
+            self.nextChapter = self.redChapter;
+            self.redChapter = self.upChapter;
             self.redChapterCount -= 1;
-            self.redChapter =[self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
+            dispatch_async(dispatch_queue_create("LoadOtherChapter", NULL), ^{self.upChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];});
             self.redPage = self.redChapter.pageCount-1;
         }
     }
-    [pageView updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [pageView updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -397,7 +413,7 @@ typedef NS_ENUM(NSInteger){
     
     self.txtModel.readChapter = [NSString stringWithFormat:@"%ld",self.redChapterCount];
     HRChapterListController *cha = [[HRChapterListController alloc] init];
-    cha.allChapters = [self.helper selectAllChapter:self.txtModel.txtId];
+//    cha.allChapters = [self.helper selectAllChapter:self.txtModel.txtId page:1];
     cha.txtModel = self.txtModel;
     [self.navigationController pushViewController:cha animated:YES];
 }
@@ -449,25 +465,25 @@ typedef NS_ENUM(NSInteger){
     [[NSUserDefaults standardUserDefaults] setFloat:fontSzie forKey:@"FontSize"];
     [self.readDetailOne.contect setFont:[UIFont systemFontOfSize:fontSzie]];
     [self.readDetailTwo.contect setFont:[UIFont systemFontOfSize:fontSzie]];
-    NSString *notReadContent = @"";
-    if (self.redPage != (self.redChapter.pageCount-1)) {
-        for (NSInteger i = self.redPage;i<self.redChapter.pageCount; i++) {
-            notReadContent = [NSString stringWithFormat:@"%@%@",notReadContent,[self.redChapter getTextWithPage:i]];
-        }
-    }
-    self.redChapter.content = notReadContent;
+//    NSString *notReadContent = @"";
+//    if (self.redPage != (self.redChapter.pageCount-1)) {
+//        for (NSInteger i = self.redPage;i<self.redChapter.pageCount; i++) {
+//            notReadContent = [NSString stringWithFormat:@"%@%@",notReadContent,[self.redChapter getTextWithPage:i]];
+//        }
+//    }
+    self.redChapter.content = self.redChapter.content;
 }
 
 - (void)upOrNextChapter:(NSInteger)chapter{
     self.redPage = 0;
     self.redChapter =[self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
-    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
-    [self.readDetailTwo updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [self.readDetailTwo updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
 - (void)updateShowTextContent:(HRReadDetailView *)showView{
 //    self.redPage = 0;
-    [showView updateContent:[self.redChapter getTextWithPage:self.redPage] title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [showView updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
 

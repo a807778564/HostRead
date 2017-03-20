@@ -20,6 +20,8 @@
 
 @property (nonatomic, assign) NSInteger pageCount;
 
+@property (nonatomic, strong) NSMutableDictionary *attDic;
+
 - (NSString *)getTextWithPage:(NSInteger)page;
 
 @end
