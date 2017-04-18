@@ -7,6 +7,7 @@
 //
 
 #import "HRSsettingController.h"
+#import "HRLoginController.h"
 #import <SocketRocket/SRWebSocket.h>
 
 @interface HRSsettingController ()<SRWebSocketDelegate>
@@ -19,11 +20,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"设置";
-    SRWebSocket *soc = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.16.213.125:8080/"]]];
+    [self setRightBtn];
+}
+
+
+- (void)doRightAction:(id)sender{
+//    HRLoginController *login = [[HRLoginController alloc] init];
+//    login.hidesBottomBarWhenPushed = YES;
+//      [self.navigationController pushViewController:login animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    SRWebSocket *soc = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http:www.baidu.com"]]];
     soc.delegate = self;
     [soc open];
 }
-
 
 - (void)webSocketDidOpen:(SRWebSocket *)webSocket {
     NSLog(@"连接成功，可以立刻登录你公司后台的服务器了，还有开启心跳");

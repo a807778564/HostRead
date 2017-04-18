@@ -52,8 +52,12 @@
 		2C46323B1D74313700AC062E /* UIButton+simpleinit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4632371D74313700AC062E /* UIButton+simpleinit.m */; };
 		2C46323C1D74313700AC062E /* UILabel+simpleinit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46323A1D74313700AC062E /* UILabel+simpleinit.m */; };
 		2C47E0ED1D71898600329CF2 /* HRChapterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C47E0EC1D71898600329CF2 /* HRChapterListController.m */; };
+		2C50E1821E8E25B200A00427 /* HRLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C50E1811E8E25B200A00427 /* HRLoginController.m */; };
 		2C6C9DA91D702D4A00D9EB00 /* HRBatteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */; };
 		2C6C9DAC1D7034F400D9EB00 /* HRReadDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */; };
+		2C6D82171E89FDF20097C2AF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6D82161E89FDF20097C2AF /* CFNetwork.framework */; };
+		2C6D82191E89FE020097C2AF /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6D82181E89FE020097C2AF /* libicucore.tbd */; };
+		2C6D821B1E89FE0A0097C2AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6D821A1E89FE0A0097C2AF /* Foundation.framework */; };
 		2C715F3D1D8130F500DC39B5 /* HRProGressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C715F3C1D8130F500DC39B5 /* HRProGressView.m */; };
 		2C715F401D81581200DC39B5 /* HRHttpController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C715F3F1D81581200DC39B5 /* HRHttpController.m */; };
 		2C76B6A11D6AE7500052CCF8 /* HRRecentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C76B6A01D6AE7500052CCF8 /* HRRecentController.m */; };
@@ -162,10 +166,15 @@
 		2C46323A1D74313700AC062E /* UILabel+simpleinit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+simpleinit.m"; sourceTree = "<group>"; };
 		2C47E0EB1D71898600329CF2 /* HRChapterListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRChapterListController.h; sourceTree = "<group>"; };
 		2C47E0EC1D71898600329CF2 /* HRChapterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRChapterListController.m; sourceTree = "<group>"; };
+		2C50E1801E8E25B200A00427 /* HRLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRLoginController.h; sourceTree = "<group>"; };
+		2C50E1811E8E25B200A00427 /* HRLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRLoginController.m; sourceTree = "<group>"; };
 		2C6C9DA71D702D4A00D9EB00 /* HRBatteryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBatteryView.h; sourceTree = "<group>"; };
 		2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBatteryView.m; sourceTree = "<group>"; };
 		2C6C9DAA1D7034F400D9EB00 /* HRReadDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRReadDetailView.h; sourceTree = "<group>"; };
 		2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRReadDetailView.m; sourceTree = "<group>"; };
+		2C6D82161E89FDF20097C2AF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		2C6D82181E89FE020097C2AF /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		2C6D821A1E89FE0A0097C2AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2C715F3B1D8130F500DC39B5 /* HRProGressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRProGressView.h; sourceTree = "<group>"; };
 		2C715F3C1D8130F500DC39B5 /* HRProGressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRProGressView.m; sourceTree = "<group>"; };
 		2C715F3E1D81581200DC39B5 /* HRHttpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRHttpController.h; sourceTree = "<group>"; };
@@ -200,6 +209,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6D821B1E89FE0A0097C2AF /* Foundation.framework in Frameworks */,
+				2C6D82191E89FE020097C2AF /* libicucore.tbd in Frameworks */,
+				2C6D82171E89FDF20097C2AF /* CFNetwork.framework in Frameworks */,
 				2C41AADF1D6EF4BE007CE67E /* libsqlite3.tbd in Frameworks */,
 				2C453E131D6D72980061B535 /* CoreText.framework in Frameworks */,
 				EF8816EF7A86B2B1F34D156E /* libPods-HostRead.a in Frameworks */,
@@ -567,6 +579,8 @@
 			children = (
 				2C7A08E91D6ACE510027B1B5 /* HRSsettingController.h */,
 				2C7A08EA1D6ACE510027B1B5 /* HRSsettingController.m */,
+				2C50E1801E8E25B200A00427 /* HRLoginController.h */,
+				2C50E1811E8E25B200A00427 /* HRLoginController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -603,6 +617,9 @@
 		E7B67AC6EBFBCE4B2587BFD0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C6D821A1E89FE0A0097C2AF /* Foundation.framework */,
+				2C6D82181E89FE020097C2AF /* libicucore.tbd */,
+				2C6D82161E89FDF20097C2AF /* CFNetwork.framework */,
 				EABB3F6BF4ED449EBBB4CB9A /* libPods-HostRead.a */,
 			);
 			name = Frameworks;
@@ -754,6 +771,7 @@
 				2C44FC011D7FE6090042CE34 /* HTTPAuthenticationRequest.m in Sources */,
 				2C41AAE61D6F06E2007CE67E /* HRDBHelper.m in Sources */,
 				2C44FC0A1D7FE6090042CE34 /* HTTPDynamicFileResponse.m in Sources */,
+				2C50E1821E8E25B200A00427 /* HRLoginController.m in Sources */,
 				2C44FC041D7FE6090042CE34 /* HTTPServer.m in Sources */,
 				2C44FC071D7FE6090042CE34 /* MultipartMessageHeaderField.m in Sources */,
 				2C44FC141D800CA80042CE34 /* HRHTTPConnection.m in Sources */,

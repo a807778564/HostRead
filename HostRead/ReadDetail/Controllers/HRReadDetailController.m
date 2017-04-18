@@ -476,6 +476,7 @@ typedef NS_ENUM(NSInteger){
 
 - (void)upOrNextChapter:(NSInteger)chapter{
     self.redPage = 0;
+    self.upChapter = self.redChapter;
     self.redChapter =[self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
     [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
     [self.readDetailTwo updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];

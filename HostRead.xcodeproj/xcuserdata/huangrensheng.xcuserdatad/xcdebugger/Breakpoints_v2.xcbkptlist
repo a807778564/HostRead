@@ -260,11 +260,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HostRead/ReadDetail/Controllers/HRReadDetailController.m"
-            timestampString = "511672818.720726"
+            timestampString = "514195792.645167"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "486"
-            endingLineNumber = "486"
+            startingLineNumber = "487"
+            endingLineNumber = "487"
             landmarkName = "-updateShowTextContent:"
             landmarkType = "7">
          </BreakpointContent>
