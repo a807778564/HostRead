@@ -52,7 +52,7 @@
         return @"";
     }
 //    content = [content stringByReplacingOccurrencesOfString:@"  " withString:@""];
-//    content = [content stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
+    content = [content stringByReplacingOccurrencesOfString:@"\r\n\r\n" withString:@"\n"];
     return content;
     
 }

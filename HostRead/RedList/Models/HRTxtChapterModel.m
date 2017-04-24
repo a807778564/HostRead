@@ -26,8 +26,8 @@
     [attributes setValue:@(6.0) forKey:NSKernAttributeName];
     
     NSMutableParagraphStyle * paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    paragraphStyle.lineSpacing = 5;
-//    paragraphStyle.paragraphSpacing = 5;
+    paragraphStyle.lineSpacing = 10;
+    paragraphStyle.paragraphSpacing = 10;
     paragraphStyle.lineBreakMode = NSLineBreakByCharWrapping;
     paragraphStyle.alignment = NSTextAlignmentJustified;
     [attributes setValue:paragraphStyle forKey:NSParagraphStyleAttributeName];
@@ -110,12 +110,17 @@
         if (range.location + range.length >= textLength){
             range.length = textLength - range.location;
         }
-            
+
         int i = 0;
         // 然后一个个缩短字符串的长度，当缩短后的字符串尺寸小于textView的尺寸时即为满足
         while (range.length > 0 ){
             i++;
             pageText1 = [contentString substringWithRange:range];
+            if ([[pageText1 substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"\n"]) {
+                contentString = [contentString stringByReplacingCharactersInRange:NSMakeRange(range.location, 1) withString:@"."];
+                _content = [_content stringByReplacingCharactersInRange:NSMakeRange(range.location, 1) withString:@"."];
+                pageText1 = [contentString substringWithRange:range];
+            }
             NSAttributedString *pageText =  [[NSAttributedString alloc] initWithString:pageText1 attributes:textAttribute];
             CGRect pageTextSize = [pageText boundingRectWithSize:CGSizeMake(contentSize.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
                 

@@ -472,6 +472,8 @@ typedef NS_ENUM(NSInteger){
 //        }
 //    }
     self.redChapter.content = self.redChapter.content;
+    self.nextChapter.content = self.nextChapter.content;
+    self.upChapter.content = self.upChapter.content;
 }
 
 - (void)upOrNextChapter:(NSInteger)chapter{

@@ -148,44 +148,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HostRead/ReadDetail/Controllers/HRReadDetailController.m"
-            timestampString = "511672818.720726"
+            timestampString = "514361031.416369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "468"
             endingLineNumber = "468"
             landmarkName = "-changeContentFont:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HostRead/RedList/Models/HRTxtChapterModel.m"
-            timestampString = "511410373.032941"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "-pagingwithContentString:contentSize:textAttribute:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HostRead/RedList/Models/HRTxtChapterModel.m"
-            timestampString = "511410373.032941"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
-            landmarkName = "-pagingwithContentString:contentSize:textAttribute:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -228,22 +196,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HostRead/RedList/Models/HRTxtChapterModel.m"
-            timestampString = "511411346.204156"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
-            landmarkName = "-pagingwithContentString:contentSize:textAttribute:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HostRead/RedList/Models/HRTxtChapterModel.m"
             timestampString = "511411998.557624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -260,7 +212,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "HostRead/ReadDetail/Controllers/HRReadDetailController.m"
-            timestampString = "514195792.645167"
+            timestampString = "514361031.416369"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "487"
