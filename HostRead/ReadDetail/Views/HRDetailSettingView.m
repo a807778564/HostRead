@@ -128,6 +128,7 @@
         
         UIButton *graySetting = [[UIButton alloc] initWithTitle:@"高级\n设置" font:[UIFont systemFontOfSize:15] coclor:[UIColor grayColor]];
         graySetting.tag = SettingTypeGraSetting;
+        [graySetting addTarget:self action:@selector(didSettingOnClick:) forControlEvents:UIControlEventTouchUpInside];
         graySetting.titleLabel.numberOfLines = 2;
         graySetting.backgroundColor = RGBA(245, 245, 245, 1);
         graySetting.layer.cornerRadius = 25.0f;

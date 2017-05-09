@@ -120,6 +120,7 @@
                 contentString = [contentString stringByReplacingCharactersInRange:NSMakeRange(range.location, 1) withString:@"."];
                 _content = [_content stringByReplacingCharactersInRange:NSMakeRange(range.location, 1) withString:@"."];
                 pageText1 = [contentString substringWithRange:range];
+                range.location = range.location+1;
             }
             NSAttributedString *pageText =  [[NSAttributedString alloc] initWithString:pageText1 attributes:textAttribute];
             CGRect pageTextSize = [pageText boundingRectWithSize:CGSizeMake(contentSize.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
@@ -173,6 +174,9 @@
 - (NSString *)getTextWithPage:(NSInteger)page{
     NSRange range = NSRangeFromString(self.chapterRange[page]);
 //    NSLog(@"[_chaContent substringWithRange:range] :%@",[_chaContent substringWithRange:range]);
+    if (range.location+range.length>_content.length) {
+        range = NSMakeRange(range.location, _content.length-range.location);
+    }
     return [_content substringWithRange:range];
 }
 

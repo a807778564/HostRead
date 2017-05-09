@@ -14,6 +14,7 @@
 #import "HRReadDetailView.h"
 #import "HRChapterListController.h"
 #import "HRDetailSettingView.h"
+#import "HRSsettingController.h"
 
 typedef NS_ENUM(NSInteger){
     Direction_left = 101,//左滑
@@ -50,6 +51,8 @@ typedef NS_ENUM(NSInteger){
 @property (nonatomic, strong) HRDetailSettingView *settingView;
 
 @property (nonatomic, assign) CGFloat fontSize;
+
+@property (nonatomic, assign) BOOL isGradSetting;//高级设置
 
 @end
 
@@ -111,8 +114,13 @@ typedef NS_ENUM(NSInteger){
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    if (self.isGradSetting) {
+        self.isGradSetting = false;
+        return;
+    }
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+
     [self.view bringSubviewToFront:self.readDetailOne];// 第一页显示到最上层
     [self initPageOneCon];
     self.redPage = [self.txtModel.redPage integerValue];
@@ -395,6 +403,8 @@ typedef NS_ENUM(NSInteger){
 }
 
 - (void)doLeftAction:(id)sender{
+    self.readDetailOne.hidden = YES;
+    self.readDetailTwo.hidden = YES;
     [self.helper updateSliderWitnTxtId:self.txtModel.txtId readPage:self.redPage readChapter:self.redChapterCount];
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -437,7 +447,11 @@ typedef NS_ENUM(NSInteger){
         }
         [self upOrNextChapter:self.redChapterCount];
     }else if(settingType == SettingTypeGraSetting){
-        
+        HRSsettingController *sett = [[HRSsettingController alloc] init];
+        UINavigationController  *nav= [[UINavigationController alloc] initWithRootViewController:sett];
+        [self presentViewController:nav animated:YES completion:^{
+            self.isGradSetting = YES;
+        }];
     }else if (settingType == SettingTypeLightStyle) {
         [self changeReadModel:RGBA(245, 245, 245, 1) contentColor:RGBA(34, 34, 34, 1)];
     }else if(settingType == SettingTypeBlackStyle){

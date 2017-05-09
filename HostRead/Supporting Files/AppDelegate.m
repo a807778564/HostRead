@@ -36,11 +36,13 @@
         NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
         [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
     }else{
-
+        
     }
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UITabBarController *rootController = [self createViewControllers];
-    self.window.rootViewController = rootController;
+//    UITabBarController *rootController = [self createViewControllers];
+    HRRedListController *list = [[HRRedListController alloc] init];
+    UINavigationController *navgation = [[UINavigationController alloc] initWithRootViewController:list];
+    self.window.rootViewController = navgation;
     [self.window makeKeyAndVisible];
     
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageWithColor:[UIColor whiteColor] Size:CGSizeMake([[UIScreen mainScreen] bounds].size.width/tabCount, 49) Alpha:0.2]];
@@ -116,6 +118,21 @@
 - (void)hudWasHidden:(MBProgressHUD *)_hud {
     [self.HUD removeFromSuperview];
     self.HUD = nil;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation
+{
+    if (self.window) {
+        if (url) {
+            NSString *fileNameStr = [url lastPathComponent];
+            NSString *Doc = [[NSHomeDirectory() stringByAppendingPathComponent:@"Documents/copy"] stringByAppendingPathComponent:fileNameStr];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            [data writeToFile:Doc atomically:YES];
+//            [XCHUDTool showOKHud:@"文件已存到本地文件夹内" delay:2.0f];
+            NSLog(@"文件已存到本地文件夹内");
+        }
+    }
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

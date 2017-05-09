@@ -164,14 +164,14 @@
 
 #pragma mark table_chapters操作
 - (BOOL)insertChaptersIdx:(NSInteger)idx title:(NSString *)title content:(NSString *)content txtId:(NSString *)txtId{
-    if (content.length <50) {
+    if (content.length <50 && ![title isEqualToString:@""]) {
         return NO;
     }
     FMDatabase *db = [self getBase];
     if ([db open]) {
         BOOL insert = [db executeUpdate:@"insert into table_chapters(idx,title,content,txtId)values(?,?,?,?)",[NSNumber numberWithInteger:idx],title,content,[NSNumber numberWithInteger:[txtId integerValue]]];
         if (insert) {
-            NSLog(@"success");
+//            NSLog(@"success");
             return YES;
         }
     }

@@ -35,10 +35,20 @@
     [self.chapterTable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    
-    NSUInteger ii[2] = {0, [self.txtModel.readChapter integerValue]};
-    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
-    [self.chapterTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if ([self.txtModel.allChapter integerValue]>0) {
+        self.chapterTable.hidden = NO;
+        NSUInteger ii[2] = {0, [self.txtModel.readChapter integerValue]};
+        NSIndexPath *indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
+        [self.chapterTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }else{
+        self.chapterTable.hidden = YES;
+        UILabel *mess = [[UILabel alloc] initWithFont:[UIFont systemFontOfSize:16] TextColor:[UIColor blackColor] Text:@"没有目录信息"];
+        [self.view addSubview:mess];
+        [mess mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view.mas_centerX);
+            make.centerY.equalTo(self.view.mas_centerY);
+        }];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

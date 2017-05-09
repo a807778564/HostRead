@@ -53,6 +53,7 @@
     }
 //    content = [content stringByReplacingOccurrencesOfString:@"  " withString:@""];
     content = [content stringByReplacingOccurrencesOfString:@"\r\n\r\n" withString:@"\n"];
+    content = [content stringByReplacingOccurrencesOfString:@"\n\n" withString:@"\n"];
     return content;
     
 }
@@ -100,7 +101,7 @@
         [self.helper updateTxtAllChapter:allChapterCount txtId:txtId];
     }
     else{
-        [self.helper insertChaptersIdx:0 title:@"" content:content txtId:[NSString stringWithFormat:@"%ld",txtId]];
+        [self.helper insertChaptersIdx:txtIdx title:@"" content:content txtId:[NSString stringWithFormat:@"%ld",txtId]];
     }
 }
 
