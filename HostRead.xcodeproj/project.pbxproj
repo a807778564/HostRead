@@ -55,6 +55,8 @@
 		2C50E1821E8E25B200A00427 /* HRLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C50E1811E8E25B200A00427 /* HRLoginController.m */; };
 		2C6C9DA91D702D4A00D9EB00 /* HRBatteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */; };
 		2C6C9DAC1D7034F400D9EB00 /* HRReadDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */; };
+		2C6D36C71ECAC84200E4F59A /* HRTouchPassWordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D36C61ECAC84200E4F59A /* HRTouchPassWordController.m */; };
+		2C6D36CA1ECAF29300E4F59A /* HRSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D36C91ECAF29300E4F59A /* HRSettingCell.m */; };
 		2C6D82171E89FDF20097C2AF /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6D82161E89FDF20097C2AF /* CFNetwork.framework */; };
 		2C6D82191E89FE020097C2AF /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6D82181E89FE020097C2AF /* libicucore.tbd */; };
 		2C6D821B1E89FE0A0097C2AF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6D821A1E89FE0A0097C2AF /* Foundation.framework */; };
@@ -172,6 +174,10 @@
 		2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBatteryView.m; sourceTree = "<group>"; };
 		2C6C9DAA1D7034F400D9EB00 /* HRReadDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRReadDetailView.h; sourceTree = "<group>"; };
 		2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRReadDetailView.m; sourceTree = "<group>"; };
+		2C6D36C51ECAC84200E4F59A /* HRTouchPassWordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRTouchPassWordController.h; sourceTree = "<group>"; };
+		2C6D36C61ECAC84200E4F59A /* HRTouchPassWordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRTouchPassWordController.m; sourceTree = "<group>"; };
+		2C6D36C81ECAF29300E4F59A /* HRSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRSettingCell.h; sourceTree = "<group>"; };
+		2C6D36C91ECAF29300E4F59A /* HRSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRSettingCell.m; sourceTree = "<group>"; };
 		2C6D82161E89FDF20097C2AF /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		2C6D82181E89FE020097C2AF /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		2C6D821A1E89FE0A0097C2AF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -581,6 +587,8 @@
 				2C7A08EA1D6ACE510027B1B5 /* HRSsettingController.m */,
 				2C50E1801E8E25B200A00427 /* HRLoginController.h */,
 				2C50E1811E8E25B200A00427 /* HRLoginController.m */,
+				2C6D36C51ECAC84200E4F59A /* HRTouchPassWordController.h */,
+				2C6D36C61ECAC84200E4F59A /* HRTouchPassWordController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -588,6 +596,8 @@
 		2C7A08DC1D6ACC6E0027B1B5 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2C6D36C81ECAF29300E4F59A /* HRSettingCell.h */,
+				2C6D36C91ECAF29300E4F59A /* HRSettingCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -750,8 +760,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6D36CA1ECAF29300E4F59A /* HRSettingCell.m in Sources */,
 				2C44FBFB1D7FE6090042CE34 /* DDFileLogger.m in Sources */,
 				2C46323B1D74313700AC062E /* UIButton+simpleinit.m in Sources */,
+				2C6D36C71ECAC84200E4F59A /* HRTouchPassWordController.m in Sources */,
 				2C3EC1651D6C201B001A335A /* HRAllFloderController.m in Sources */,
 				2C76B6A11D6AE7500052CCF8 /* HRRecentController.m in Sources */,
 				2C44FBFA1D7FE6090042CE34 /* DDASLLogger.m in Sources */,

@@ -16,6 +16,8 @@
 
 - (void)showLoadingHUD:(NSString *)msg;
 
+- (void)showTextOnly:(NSString *)msg;
+
 - (void)hidHUD;
 @end
 

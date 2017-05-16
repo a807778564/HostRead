@@ -10,6 +10,7 @@
 #import "HRRedListController.h"
 #import "HRSsettingController.h"
 #import "HRRecentController.h"
+#import "HRTouchPassWordController.h"
 
 #define tabCount 3
 
@@ -44,10 +45,17 @@
     UINavigationController *navgation = [[UINavigationController alloc] initWithRootViewController:list];
     self.window.rootViewController = navgation;
     [self.window makeKeyAndVisible];
-    
+    [self showPassView];
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageWithColor:[UIColor whiteColor] Size:CGSizeMake([[UIScreen mainScreen] bounds].size.width/tabCount, 49) Alpha:0.2]];
     //tab 字体颜色 00bb9c
     return YES;
+}
+
+- (void)showPassView{
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"appPass"]) {
+        HRTouchPassWordController *list = [[HRTouchPassWordController alloc] init];
+        [self.window.rootViewController presentViewController:list animated:YES completion:nil];
+    }
 }
 
 - (UITabBarController *)createViewControllers{
@@ -97,6 +105,16 @@
     UIImage *image = [UIImage imageNamed:_name];
     image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return image;
+}
+
+- (void)showTextOnly:(NSString *)msg{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.detailsLabelText = msg;
+    hud.detailsLabelFont = [UIFont systemFontOfSize:12];
+    hud.margin = 10.f;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:2.0];
 }
 
 - (void)showLoadingHUD:(NSString *)msg{
@@ -151,6 +169,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [self showPassView];
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

@@ -8,10 +8,13 @@
 
 #import "HRSsettingController.h"
 #import "HRLoginController.h"
+#import "HRTouchPassWordController.h"
 #import <SocketRocket/SRWebSocket.h>
+#import "HRSettingCell.h"
 
-@interface HRSsettingController ()//<SRWebSocketDelegate>
-
+@interface HRSsettingController ()<UITableViewDelegate,UITableViewDataSource>//<SRWebSocketDelegate>
+@property (nonatomic, strong) UITableView *settTable;
+@property (nonatomic, strong) NSArray *cellArray;
 @end
 
 @implementation HRSsettingController
@@ -21,8 +24,49 @@
     // Do any additional setup after loading the view.
     self.title = @"设置";
     [self setBackBtn];
+    
+    self.settTable = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.settTable.dataSource = self;
+    self.settTable.delegate = self;
+    self.settTable.tableFooterView = [[UIView alloc] init];
+    [self.view addSubview:self.settTable];
+    [self.settTable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    self.cellArray = [NSArray arrayWithObjects:@"主题色",@"背景色",@"字体颜色",@"阅读字体格式",@"密码保护",@"清理重置", nil];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.cellArray.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 44;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *identifer = @"HRSettingCell";
+    HRSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:identifer];
+    if (!cell) {
+        cell = [[HRSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifer];
+    }
+    cell.titleString = self.cellArray[indexPath.row];
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    HRSettingCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.settLabel.text isEqualToString:@"密码保护"] && [cell.rightBtn.titleLabel.text isEqualToString:@"关闭"]) {
+        HRTouchPassWordController *pass = [[HRTouchPassWordController alloc] init];
+        pass.showHeader = YES;
+        [self.navigationController pushViewController:pass animated:YES];
+    }
+}
 
 - (void)doRightAction:(id)sender{
 //    HRLoginController *login = [[HRLoginController alloc] init];
@@ -32,6 +76,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.settTable reloadData];
 //    SRWebSocket *soc = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http:www.baidu.com"]]];
 //    soc.delegate = self;
 //    [soc open];
