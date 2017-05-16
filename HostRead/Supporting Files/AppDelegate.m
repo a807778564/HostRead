@@ -45,7 +45,7 @@
     UINavigationController *navgation = [[UINavigationController alloc] initWithRootViewController:list];
     self.window.rootViewController = navgation;
     [self.window makeKeyAndVisible];
-    [self showPassView];
+
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageWithColor:[UIColor whiteColor] Size:CGSizeMake([[UIScreen mainScreen] bounds].size.width/tabCount, 49) Alpha:0.2]];
     //tab 字体颜色 00bb9c
     return YES;
@@ -53,9 +53,20 @@
 
 - (void)showPassView{
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"appPass"]) {
+        NSLog(@"------------------------%@",[self getPresentedViewController]);
         HRTouchPassWordController *list = [[HRTouchPassWordController alloc] init];
-        [self.window.rootViewController presentViewController:list animated:YES completion:nil];
+        [[self getPresentedViewController] presentViewController:list animated:YES completion:nil];
+        
     }
+}
+
+- (UIViewController *)getPresentedViewController{
+    UIViewController *appRootVC = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *topVC = appRootVC;
+    if (topVC.presentedViewController) {
+        topVC = topVC.presentedViewController;
+    }
+    return topVC;
 }
 
 - (UITabBarController *)createViewControllers{
