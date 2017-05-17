@@ -156,7 +156,6 @@
                     }else{
                         self.savePass = [NSString stringWithFormat:@"%ld",btn.tag];
                     }
-                    NSLog(@"添加的密码 %@",self.savePass);
                     [self.selectorArr addObject:btn];
                     btn.highlighted = YES;
                 }

@@ -53,6 +53,10 @@
 		2C46323C1D74313700AC062E /* UILabel+simpleinit.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46323A1D74313700AC062E /* UILabel+simpleinit.m */; };
 		2C47E0ED1D71898600329CF2 /* HRChapterListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C47E0EC1D71898600329CF2 /* HRChapterListController.m */; };
 		2C50E1821E8E25B200A00427 /* HRLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C50E1811E8E25B200A00427 /* HRLoginController.m */; };
+		2C6B69B91ECBE36E00E1B3DF /* HRSettingColorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B69B81ECBE36E00E1B3DF /* HRSettingColorController.m */; };
+		2C6B69BC1ECBE87F00E1B3DF /* HRSettingColorHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B69BB1ECBE87F00E1B3DF /* HRSettingColorHeaderView.m */; };
+		2C6B69BF1ECBF8BE00E1B3DF /* HRSettingColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B69BE1ECBF8BE00E1B3DF /* HRSettingColorCell.m */; };
+		2C6B69C21ECC169900E1B3DF /* HRColorRGBACell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B69C11ECC169900E1B3DF /* HRColorRGBACell.m */; };
 		2C6C9DA91D702D4A00D9EB00 /* HRBatteryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */; };
 		2C6C9DAC1D7034F400D9EB00 /* HRReadDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6C9DAB1D7034F400D9EB00 /* HRReadDetailView.m */; };
 		2C6D36C71ECAC84200E4F59A /* HRTouchPassWordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6D36C61ECAC84200E4F59A /* HRTouchPassWordController.m */; };
@@ -170,6 +174,14 @@
 		2C47E0EC1D71898600329CF2 /* HRChapterListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRChapterListController.m; sourceTree = "<group>"; };
 		2C50E1801E8E25B200A00427 /* HRLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRLoginController.h; sourceTree = "<group>"; };
 		2C50E1811E8E25B200A00427 /* HRLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRLoginController.m; sourceTree = "<group>"; };
+		2C6B69B71ECBE36E00E1B3DF /* HRSettingColorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRSettingColorController.h; sourceTree = "<group>"; };
+		2C6B69B81ECBE36E00E1B3DF /* HRSettingColorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRSettingColorController.m; sourceTree = "<group>"; };
+		2C6B69BA1ECBE87F00E1B3DF /* HRSettingColorHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRSettingColorHeaderView.h; sourceTree = "<group>"; };
+		2C6B69BB1ECBE87F00E1B3DF /* HRSettingColorHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRSettingColorHeaderView.m; sourceTree = "<group>"; };
+		2C6B69BD1ECBF8BE00E1B3DF /* HRSettingColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRSettingColorCell.h; sourceTree = "<group>"; };
+		2C6B69BE1ECBF8BE00E1B3DF /* HRSettingColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRSettingColorCell.m; sourceTree = "<group>"; };
+		2C6B69C01ECC169900E1B3DF /* HRColorRGBACell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorRGBACell.h; sourceTree = "<group>"; };
+		2C6B69C11ECC169900E1B3DF /* HRColorRGBACell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorRGBACell.m; sourceTree = "<group>"; };
 		2C6C9DA71D702D4A00D9EB00 /* HRBatteryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBatteryView.h; sourceTree = "<group>"; };
 		2C6C9DA81D702D4A00D9EB00 /* HRBatteryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBatteryView.m; sourceTree = "<group>"; };
 		2C6C9DAA1D7034F400D9EB00 /* HRReadDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRReadDetailView.h; sourceTree = "<group>"; };
@@ -589,6 +601,8 @@
 				2C50E1811E8E25B200A00427 /* HRLoginController.m */,
 				2C6D36C51ECAC84200E4F59A /* HRTouchPassWordController.h */,
 				2C6D36C61ECAC84200E4F59A /* HRTouchPassWordController.m */,
+				2C6B69B71ECBE36E00E1B3DF /* HRSettingColorController.h */,
+				2C6B69B81ECBE36E00E1B3DF /* HRSettingColorController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -598,6 +612,12 @@
 			children = (
 				2C6D36C81ECAF29300E4F59A /* HRSettingCell.h */,
 				2C6D36C91ECAF29300E4F59A /* HRSettingCell.m */,
+				2C6B69BA1ECBE87F00E1B3DF /* HRSettingColorHeaderView.h */,
+				2C6B69BB1ECBE87F00E1B3DF /* HRSettingColorHeaderView.m */,
+				2C6B69BD1ECBF8BE00E1B3DF /* HRSettingColorCell.h */,
+				2C6B69BE1ECBF8BE00E1B3DF /* HRSettingColorCell.m */,
+				2C6B69C01ECC169900E1B3DF /* HRColorRGBACell.h */,
+				2C6B69C11ECC169900E1B3DF /* HRColorRGBACell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -781,11 +801,14 @@
 				2C44FBFF1D7FE6090042CE34 /* DispatchQueueLogFormatter.m in Sources */,
 				2C46322E1D7423D100AC062E /* UIBarButtonItem+HRS.m in Sources */,
 				2C44FC011D7FE6090042CE34 /* HTTPAuthenticationRequest.m in Sources */,
+				2C6B69BC1ECBE87F00E1B3DF /* HRSettingColorHeaderView.m in Sources */,
 				2C41AAE61D6F06E2007CE67E /* HRDBHelper.m in Sources */,
 				2C44FC0A1D7FE6090042CE34 /* HTTPDynamicFileResponse.m in Sources */,
 				2C50E1821E8E25B200A00427 /* HRLoginController.m in Sources */,
 				2C44FC041D7FE6090042CE34 /* HTTPServer.m in Sources */,
 				2C44FC071D7FE6090042CE34 /* MultipartMessageHeaderField.m in Sources */,
+				2C6B69B91ECBE36E00E1B3DF /* HRSettingColorController.m in Sources */,
+				2C6B69C21ECC169900E1B3DF /* HRColorRGBACell.m in Sources */,
 				2C44FC141D800CA80042CE34 /* HRHTTPConnection.m in Sources */,
 				2C7A08EB1D6ACE510027B1B5 /* HRSsettingController.m in Sources */,
 				2C46322F1D7423D100AC062E /* UIColor+ColorWithHex.m in Sources */,
@@ -808,6 +831,7 @@
 				2C41AAE71D6F06E2007CE67E /* HRReadTool.m in Sources */,
 				2C44FC091D7FE6090042CE34 /* HTTPDataResponse.m in Sources */,
 				2C44FBFC1D7FE6090042CE34 /* DDLog.m in Sources */,
+				2C6B69BF1ECBF8BE00E1B3DF /* HRSettingColorCell.m in Sources */,
 				2C715F3D1D8130F500DC39B5 /* HRProGressView.m in Sources */,
 				2C44FBFE1D7FE6090042CE34 /* ContextFilterLogFormatter.m in Sources */,
 				2C44FC051D7FE6090042CE34 /* MultipartFormDataParser.m in Sources */,

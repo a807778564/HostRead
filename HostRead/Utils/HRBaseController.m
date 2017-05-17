@@ -23,6 +23,15 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)changeTinColor{
+    
+}
+
 - (void)setBackBtn{
     UIImage *image = [UIImage imageNamedWithoutNOSelectBlue:@"nav_back"];
     UIBarButtonItem *backBtn = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(doLeftAction:)];

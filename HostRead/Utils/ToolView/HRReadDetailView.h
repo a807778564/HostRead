@@ -16,4 +16,6 @@
 
 @property (nonatomic, strong) UITextView *contect;
 
+@property (nonatomic, strong) NSMutableDictionary *dic;
+
 @end

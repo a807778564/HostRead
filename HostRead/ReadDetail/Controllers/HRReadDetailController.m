@@ -60,11 +60,7 @@ typedef NS_ENUM(NSInteger){
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
-    NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    
-    self.view.backgroundColor = [dic valueForKey:@"readBack"];
-    self.navigationController.tabBarController.view.backgroundColor = [dic valueForKey:@"readBack"];
+//    self.navigationController.tabBarController.view.backgroundColor = [dic valueForKey:@"readBack"];
     self.helper = [[HRDBHelper alloc] init];
     self.isSetting = YES;//默认隐藏navbar
     self.fontSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"];
@@ -114,6 +110,12 @@ typedef NS_ENUM(NSInteger){
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
+    NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    self.readDetailOne.backgroundColor = [dic valueForKey:@"readBack"];
+    self.readDetailTwo.backgroundColor = [dic valueForKey:@"readBack"];
+    self.readDetailTwo.dic = dic;
+    self.readDetailOne.dic = dic;
     if (self.isGradSetting) {
         self.isGradSetting = false;
         return;
@@ -500,6 +502,12 @@ typedef NS_ENUM(NSInteger){
 
 - (void)updateShowTextContent:(HRReadDetailView *)showView{
 //    self.redPage = 0;
+    NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
+    NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    self.readDetailOne.backgroundColor = [dic valueForKey:@"readBack"];
+    self.readDetailTwo.backgroundColor = [dic valueForKey:@"readBack"];
+    self.readDetailTwo.dic = dic;
+    self.readDetailOne.dic = dic;
     [showView updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 

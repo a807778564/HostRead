@@ -11,6 +11,7 @@
 #import "HRTouchPassWordController.h"
 #import <SocketRocket/SRWebSocket.h>
 #import "HRSettingCell.h"
+#import "HRSettingColorController.h"
 
 @interface HRSsettingController ()<UITableViewDelegate,UITableViewDataSource>//<SRWebSocketDelegate>
 @property (nonatomic, strong) UITableView *settTable;
@@ -65,6 +66,10 @@
         HRTouchPassWordController *pass = [[HRTouchPassWordController alloc] init];
         pass.showHeader = YES;
         [self.navigationController pushViewController:pass animated:YES];
+    }else{
+        HRSettingColorController *color = [[HRSettingColorController alloc] init];
+        color.colorTitle = cell.settLabel.text;
+        [self.navigationController pushViewController:color animated:YES];
     }
 }
 

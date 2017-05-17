@@ -33,7 +33,7 @@
         
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];//默认阅读模式
         [dic setValue:[UIColor blackColor] forKey:@"readBack"];//黑色字体
-        [dic setValue:[UIColor whiteColor] forKey:@"contentColor"];//背景
+        [dic setValue:RGBA(34, 34, 34, 1) forKey:@"contentColor"];//背景
         NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
         [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
     }else{
@@ -53,10 +53,11 @@
 
 - (void)showPassView{
     if ([[NSUserDefaults standardUserDefaults] stringForKey:@"appPass"]) {
-        NSLog(@"------------------------%@",[self getPresentedViewController]);
-        HRTouchPassWordController *list = [[HRTouchPassWordController alloc] init];
-        [[self getPresentedViewController] presentViewController:list animated:YES completion:nil];
-        
+//        NSLog(@"------------------------%@",[self getPresentedViewController]);
+        if (![[self getPresentedViewController] isKindOfClass:[HRTouchPassWordController class]]) {
+            HRTouchPassWordController *list = [[HRTouchPassWordController alloc] init];
+            [[self getPresentedViewController] presentViewController:list animated:NO completion:nil];
+        }
     }
 }
 

@@ -32,6 +32,8 @@
     paragraphStyle.alignment = NSTextAlignmentJustified;
     [attributes setValue:paragraphStyle forKey:NSParagraphStyleAttributeName];
     self.attDic = attributes;
+    NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:self.attDic];
+    [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"textStyle"];
 //    [self paginationWithAttributes:attributes constrainedToSize:CGRectMake(0, 0, ScreenWidth-kLeftMargin-kRightMargin-10, ScreenHeight-58)];
     [self pagingwithContentString:_content contentSize:CGSizeMake(ScreenWidth-kLeftMargin-kRightMargin-10, ScreenHeight-58) textAttribute:attributes];
 }
