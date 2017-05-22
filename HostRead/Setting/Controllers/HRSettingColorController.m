@@ -43,14 +43,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if ([self.colorTitle isEqualToString:@"主题色"]) {
+    if ([self.colorTitle isEqualToString:@"主题色"]||[self.colorTitle isEqualToString:@"主题文字"]) {
         return 0.001;
     }
     return 150;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    if ([self.colorTitle isEqualToString:@"主题色"]) {
+    if ([self.colorTitle isEqualToString:@"主题色"]||[self.colorTitle isEqualToString:@"主题文字"]) {
         return nil;
     }
     self.header = [[UIView alloc] init];

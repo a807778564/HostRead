@@ -24,6 +24,7 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if ([super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.changeColor = [UIColor whiteColor];
         [self initChildView];
         [self makeCons];
@@ -91,7 +92,11 @@
     NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
     NSMutableDictionary *dic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     if ([colorType isEqualToString:@"主题色"]) {
-        
+        if ([_colorType isEqualToString:@"主题色"]) {
+            self.changeColor = [dic valueForKey:@"nav_back_color"];
+        }else{
+            self.changeColor = [dic valueForKey:@"nav_title_color"];
+        }
     }else if ([colorType isEqualToString:@"背景色"]) {
         self.changeColor = [dic valueForKey:@"readBack"];
     }else{
@@ -136,20 +141,22 @@
     NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
     NSMutableDictionary *aadic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     if ([_colorType isEqualToString:@"主题色"]) {
+        UINavigationController *na = (UINavigationController *)[[AppDelegate sharedDelegate] getPresentedViewController];
         
+        if ([_colorType isEqualToString:@"主题色"]) {
+            [na.navigationBar setBackgroundImage:[UIImage imageWithColor:self.changeColor] forBarMetrics:UIBarMetricsDefault];
+            [aadic setValue:self.changeColor forKey:@"nav_back_color"];//背景
+        }else{
+            [na.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:self.changeColor, NSForegroundColorAttributeName, nil]];
+            [aadic setValue:self.changeColor forKey:@"nav_title_color"];//背景
+        }
     }else if ([_colorType isEqualToString:@"背景色"]) {
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];//默认阅读模式
-        [dic setValue:self.changeColor forKey:@"readBack"];//背景
-        [dic setValue:aadic[@"contentColor"] forKey:@"contentColor"];
-        NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
-        [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
+        [aadic setValue:self.changeColor forKey:@"readBack"];//背景;
     }else{
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];//默认阅读模式
-        [dic setValue:self.changeColor forKey:@"contentColor"];//字体
-        [dic setValue:aadic[@"readBack"] forKey:@"readBack"];//背景
-        NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
-        [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
+        [aadic setValue:self.changeColor forKey:@"contentColor"];//字体
     }
+    NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:aadic];
+    [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
 }
 
 - (void)makeCons{

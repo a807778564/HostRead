@@ -34,7 +34,7 @@
     [self.settTable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    self.cellArray = [NSArray arrayWithObjects:@"主题色",@"背景色",@"字体颜色",@"阅读字体格式",@"密码保护",@"清理重置", nil];
+    self.cellArray = [NSArray arrayWithObjects:@"主题色",@"主题文字",@"背景色",@"字体颜色",@"文字样式",@"密码保护",@"清理重置", nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -62,10 +62,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     HRSettingCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if ([cell.settLabel.text isEqualToString:@"密码保护"] && [cell.rightBtn.titleLabel.text isEqualToString:@"关闭"]) {
-        HRTouchPassWordController *pass = [[HRTouchPassWordController alloc] init];
-        pass.showHeader = YES;
-        [self.navigationController pushViewController:pass animated:YES];
+    if ([cell.settLabel.text isEqualToString:@"密码保护"]) {
+        if ([cell.rightBtn.titleLabel.text isEqualToString:@"关闭"]) {
+            HRTouchPassWordController *pass = [[HRTouchPassWordController alloc] init];
+            pass.showHeader = YES;
+            [self.navigationController pushViewController:pass animated:YES];
+        }
+    }else if([cell.settLabel.text isEqualToString:@"文字样式"]){
+        
+    }else if([cell.settLabel.text isEqualToString:@"清理重置"]){
+        
     }else{
         HRSettingColorController *color = [[HRSettingColorController alloc] init];
         color.colorTitle = cell.settLabel.text;

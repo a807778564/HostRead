@@ -13,14 +13,13 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ([super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         UIView *btnView = [[UIView alloc ] init];
         [self.contentView addSubview:btnView];
         [btnView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
         }];
-        
-        self.colorArray = [NSArray arrayWithObjects:RGBA(237, 247, 182, 1),RGBA(217, 247, 182, 1),RGBA(247, 242, 182, 1),RGBA(193, 236, 168, 1),RGBA(177, 249, 250, 1),RGBA(164, 205, 242, 1),RGBA(161, 170, 250, 1),RGBA(222, 184, 248, 1),RGBA(34, 34, 34, 1),RGBA(255, 255, 255, 1), nil];
-        
+        self.colorArray = [NSArray arrayWithObjects:RGBA(1, 187, 156, 1),RGBA(237, 247, 182, 1),RGBA(247, 242, 182, 1),RGBA(193, 236, 168, 1),RGBA(177, 249, 250, 1),RGBA(164, 205, 242, 1),RGBA(161, 170, 250, 1),RGBA(222, 184, 248, 1),RGBA(34, 34, 34, 1),RGBA(255, 255, 255, 1), nil];
         
         for (int i = 0; i<10; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -59,21 +58,22 @@
 - (void)saveChangeColor:(UIColor *)color{
     NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
     NSMutableDictionary *aadic = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    if ([_colorType isEqualToString:@"主题色"]) {
-        
+    if ([_colorType isEqualToString:@"主题色"]||[_colorType isEqualToString:@"主题文字"]) {
+        UINavigationController *na = (UINavigationController *)[[AppDelegate sharedDelegate] getPresentedViewController];
+        if ([_colorType isEqualToString:@"主题色"]) {
+            [na.navigationBar setBackgroundImage:[UIImage imageWithColor:color] forBarMetrics:UIBarMetricsDefault];
+            [aadic setValue:color forKey:@"nav_back_color"];//背景
+        }else{
+            [na.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:color, NSForegroundColorAttributeName, nil]];
+            [aadic setValue:color forKey:@"nav_title_color"];//背景
+        }
     }else if ([_colorType isEqualToString:@"背景色"]) {
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];//默认阅读模式
-        [dic setValue:color forKey:@"readBack"];//背景
-        [dic setValue:aadic[@"contentColor"] forKey:@"contentColor"];
-        NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
-        [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
+        [aadic setValue:color forKey:@"readBack"];//背景
     }else{
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];//默认阅读模式
-        [dic setValue:color forKey:@"contentColor"];//字体
-        [dic setValue:aadic[@"readBack"] forKey:@"readBack"];//背景
-        NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
-        [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
+        [aadic setValue:color forKey:@"contentColor"];//字体
     }
+    NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:aadic];
+    [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

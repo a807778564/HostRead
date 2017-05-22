@@ -18,6 +18,10 @@
 
 - (void)showTextOnly:(NSString *)msg;
 
+- (NSMutableDictionary *)colorDic;
+
+- (UIViewController *)getPresentedViewController;
+
 - (void)hidHUD;
 @end
 
