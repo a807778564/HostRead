@@ -34,7 +34,7 @@
     [self.settTable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    self.cellArray = [NSArray arrayWithObjects:@"主题色",@"主题文字",@"背景色",@"字体颜色",@"文字样式",@"密码保护",@"清理重置", nil];
+    self.cellArray = [NSArray arrayWithObjects:@"主题色",@"主题文字",@"背景色",@"字体颜色",@"密码保护", nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

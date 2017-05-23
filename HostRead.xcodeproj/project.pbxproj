@@ -78,6 +78,7 @@
 		2C7A08E81D6ACE270027B1B5 /* HRRedListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08E71D6ACE270027B1B5 /* HRRedListController.m */; };
 		2C7A08EB1D6ACE510027B1B5 /* HRSsettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08EA1D6ACE510027B1B5 /* HRSsettingController.m */; };
 		2CAB03FF1E77DDAD004D61C7 /* HRTextCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB03FE1E77DDAD004D61C7 /* HRTextCollectionCell.m */; };
+		2CEA6B2D1ED3FEBA007E656E /* HRTextSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEA6B2C1ED3FEBA007E656E /* HRTextSettingController.m */; };
 		EF8816EF7A86B2B1F34D156E /* libPods-HostRead.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EABB3F6BF4ED449EBBB4CB9A /* libPods-HostRead.a */; };
 /* End PBXBuildFile section */
 
@@ -218,6 +219,8 @@
 		2C7A08F01D6AD2390027B1B5 /* HostRead_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostRead_Prefix.pch; sourceTree = "<group>"; };
 		2CAB03FD1E77DDAD004D61C7 /* HRTextCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRTextCollectionCell.h; sourceTree = "<group>"; };
 		2CAB03FE1E77DDAD004D61C7 /* HRTextCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRTextCollectionCell.m; sourceTree = "<group>"; };
+		2CEA6B2B1ED3FEBA007E656E /* HRTextSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRTextSettingController.h; sourceTree = "<group>"; };
+		2CEA6B2C1ED3FEBA007E656E /* HRTextSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRTextSettingController.m; sourceTree = "<group>"; };
 		3C63ADB9E897F2DCFA8BB0DD /* Pods-HostRead.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostRead.release.xcconfig"; path = "Pods/Target Support Files/Pods-HostRead/Pods-HostRead.release.xcconfig"; sourceTree = "<group>"; };
 		EABB3F6BF4ED449EBBB4CB9A /* libPods-HostRead.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HostRead.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -603,6 +606,8 @@
 				2C6D36C61ECAC84200E4F59A /* HRTouchPassWordController.m */,
 				2C6B69B71ECBE36E00E1B3DF /* HRSettingColorController.h */,
 				2C6B69B81ECBE36E00E1B3DF /* HRSettingColorController.m */,
+				2CEA6B2B1ED3FEBA007E656E /* HRTextSettingController.h */,
+				2CEA6B2C1ED3FEBA007E656E /* HRTextSettingController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -817,6 +822,7 @@
 				2C453E191D6D7BE20061B535 /* HRReadDetailController.m in Sources */,
 				2C4632311D7423D100AC062E /* UIImage+ImageEffects.m in Sources */,
 				2C41AAEA1D6F0719007CE67E /* HRDecTxtTool.m in Sources */,
+				2CEA6B2D1ED3FEBA007E656E /* HRTextSettingController.m in Sources */,
 				2CAB03FF1E77DDAD004D61C7 /* HRTextCollectionCell.m in Sources */,
 				2C453E0E1D6D411E0061B535 /* HRTxtChapterModel.m in Sources */,
 				2C44FBF91D7FE6090042CE34 /* DDAbstractDatabaseLogger.m in Sources */,
