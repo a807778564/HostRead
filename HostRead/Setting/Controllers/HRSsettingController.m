@@ -81,7 +81,7 @@
 
 - (void)doRightAction:(id)sender{
 //    HRLoginController *login = [[HRLoginController alloc] init];
-//    login.hidesBottomBarWhenPushed = YES;
+//    login.hidesBottomBarWhenPushed = YES;s
 //      [self.navigationController pushViewController:login animated:YES];
 }
 
