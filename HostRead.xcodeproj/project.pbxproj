@@ -892,7 +892,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -909,7 +909,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -948,7 +948,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -961,6 +961,7 @@
 			baseConfigurationReference = 0CF975A27034AFCE17BCA35A /* Pods-HostRead.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 仁盛 黄 (T2CD29W6FP)";
 				DEVELOPMENT_TEAM = 784U2EBW65;
 				GCC_PREFIX_HEADER = "HostRead/Supporting Files/HostRead_Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/HostRead/Supporting Files/Info.plist";
@@ -968,7 +969,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.homedo.HostRead;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "43d8f4c7-d8bd-400c-8c4d-37263a643790";
+				PROVISIONING_PROFILE = "692e6367-a3e5-45fb-be83-935ccdb5cde2";
 				PROVISIONING_PROFILE_SPECIFIER = DevForHomedo;
 			};
 			name = Debug;
@@ -978,13 +979,15 @@
 			baseConfigurationReference = 3C63ADB9E897F2DCFA8BB0DD /* Pods-HostRead.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 784U2EBW65;
 				GCC_PREFIX_HEADER = "HostRead/Supporting Files/HostRead_Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/HostRead/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.homedo.HostRead;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "43014c46-3144-4db9-b03b-d667fcedd188";
+				PROVISIONING_PROFILE_SPECIFIER = DevForHomedo;
 			};
 			name = Release;
 		};

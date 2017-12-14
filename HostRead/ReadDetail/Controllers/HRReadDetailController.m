@@ -70,22 +70,13 @@ typedef NS_ENUM(NSInteger){
     self.readDetailOne = [[HRReadDetailView alloc] init];
     self.readDetailOne.tag = 1;
     [self.view addSubview:self.readDetailOne];
-    [self.readDetailOne mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading);
-        make.top.equalTo(self.view.mas_top);
-        make.width.offset(ScreenWidth);
-        make.height.offset(ScreenHeight);
-    }];
+    
     
     self.readDetailTwo = [[HRReadDetailView alloc] init];
     self.readDetailTwo.tag = 2;
     [self.view addSubview:self.readDetailTwo];
-    [self.readDetailTwo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(self.view.mas_leading);
-        make.top.equalTo(self.view.mas_top);
-        make.width.offset(ScreenWidth);
-        make.height.offset(ScreenHeight);
-    }];
+    
+    [self loadContran];
     
     self.settingView = [[HRDetailSettingView alloc] init];
     self.settingView.delegate = self;
@@ -108,6 +99,21 @@ typedef NS_ENUM(NSInteger){
     [self.helper updateSliderWitnTxtId:self.txtModel.txtId readPage:self.redPage readChapter:self.redChapterCount];
 }
 
+- (void)loadContran{
+    [self.readDetailOne mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.view.mas_leading);
+        make.top.equalTo(self.view.mas_top);
+        make.width.offset(ScreenWidth);
+        make.height.offset(ScreenHeight);
+    }];
+    [self.readDetailTwo mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.leading.equalTo(self.view.mas_leading);
+        make.top.equalTo(self.view.mas_top);
+        make.width.offset(ScreenWidth);
+        make.height.offset(ScreenHeight);
+    }];
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:@"ReadStyle"];
@@ -116,13 +122,13 @@ typedef NS_ENUM(NSInteger){
     self.readDetailTwo.backgroundColor = [dic valueForKey:@"readBack"];
     self.readDetailTwo.dic = dic;
     self.readDetailOne.dic = dic;
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    [self loadContran];
     if (self.isGradSetting) {
         self.isGradSetting = false;
         return;
     }
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-
     [self.view bringSubviewToFront:self.readDetailOne];// 第一页显示到最上层
     [self initPageOneCon];
     self.redPage = [self.txtModel.redPage integerValue];
@@ -414,10 +420,8 @@ typedef NS_ENUM(NSInteger){
 - (void)doRightAction:(id)sender{
     //隐藏设置界面
     self.isSetting = !self.isSetting;
+    self.isGradSetting = YES;
     [self.settingView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        
-    }];
-    [self.settingView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.offset(160);
         make.leading.and.trailing.equalTo(self.view);
         make.top.equalTo(self.view.mas_bottom);

@@ -31,10 +31,10 @@
         [[NSUserDefaults standardUserDefaults] setFloat:16.0 forKey:@"FontSize"];//默认字体
 
         NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];//默认阅读模式
-        [dic setValue:[UIColor blackColor] forKey:@"readBack"];//黑色字体
+        [dic setValue:RGBA(159,223,176,1) forKey:@"readBack"];//黑色字体
         [dic setValue:RGBA(34, 34, 34, 1) forKey:@"contentColor"];//背景
-        [dic setValue:[UIColor blackColor] forKey:@"nav_title_color"];//导航栏字体颜色
-        [dic setValue:RGBA(34, 34, 34, 1) forKey:@"nav_back_color"];//导航栏背景
+        [dic setValue:[UIColor whiteColor] forKey:@"nav_title_color"];//导航栏字体颜色
+        [dic setValue:mainColor forKey:@"nav_back_color"];//导航栏背景
         NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
         [[NSUserDefaults standardUserDefaults] setValue:personEncodedObject forKey:@"ReadStyle"];
     }else{
@@ -46,6 +46,7 @@
     UINavigationController *navgation = [[UINavigationController alloc] initWithRootViewController:list];
     self.window.rootViewController = navgation;
     [self.window makeKeyAndVisible];
+    self.window.backgroundColor = [[self colorDic] valueForKey:@"nav_back_color"];
 
     [[UITabBar appearance] setSelectionIndicatorImage:[UIImage imageWithColor:[UIColor whiteColor] Size:CGSizeMake([[UIScreen mainScreen] bounds].size.width/tabCount, 49) Alpha:0.2]];
     //tab 字体颜色 00bb9c

@@ -89,6 +89,10 @@
                     txtIdx += 1;
                     allChapterCount += 1;
                 }
+                if (idx == 10) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"HRDidLoadSome" object:[self.helper selectReadTxt:txtName] userInfo:nil];
+                    NSLog(@"loading ten chapter success");
+                }
             }
             if (idx == match.count-1) {
                 if([self.helper insertChaptersIdx:txtIdx title:[content substringWithRange:range] content:[content substringWithRange:NSMakeRange(local, content.length-local)] txtId:[NSString stringWithFormat:@"%ld",txtId]]){

@@ -25,6 +25,8 @@
 
 @property (nonatomic, strong) HRDBHelper *helper;
 
+@property (nonatomic, strong) HRReadDetailController *detail;
+
 @end
 
 @implementation HRRedListController
@@ -54,11 +56,14 @@
     }else{
         [self setBackBtn];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showTxtContent:) name:@"HRDidLoadSome" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadFileData];
+    self.detail = nil;
 }
 
 - (void)loadFileData{
@@ -180,16 +185,38 @@
             HRTxtModel *model = [[[HRDecTxtTool alloc] init] decoWithUrl:url];
             //通知主线程刷新
             dispatch_async(dispatch_get_main_queue(), ^{
-                HRReadDetailController *detail = [[HRReadDetailController alloc] init];
-                detail.hidesBottomBarWhenPushed = YES;
-                detail.txtModel  = model;
-                [self.navigationController pushViewController:detail animated:YES];
+                if (!self.detail) {
+                    self.detail = [[HRReadDetailController alloc] init];
+                    self.detail.hidesBottomBarWhenPushed = YES;
+                    self.detail.txtModel = model;
+                    [self.navigationController pushViewController:self.detail animated:YES];
+                    [[AppDelegate sharedDelegate] hidHUD];
+                    return;
+                }
+                self.detail.txtModel  = model;
                 [[AppDelegate sharedDelegate] hidHUD];
-            }); 
-            
+                [self.navigationController pushViewController:self.detail animated:YES];
+            });
         });
         
     }
+}
+
+- (void)showTxtContent:(NSNotification *)noti{
+    NSLog(@"%@",noti.object);
+    NSLog(@"%@",noti.userInfo);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self.detail) {
+            self.detail = [[HRReadDetailController alloc] init];
+            self.detail.hidesBottomBarWhenPushed = YES;
+            self.detail.txtModel = noti.object;
+            [self.navigationController pushViewController:self.detail animated:YES];
+            [[AppDelegate sharedDelegate] hidHUD];
+            return;
+        }
+        [[AppDelegate sharedDelegate] hidHUD];
+        [self.navigationController pushViewController:self.detail animated:YES];
+    });
 }
 
 - (void)doRightAction:(id)sender{
