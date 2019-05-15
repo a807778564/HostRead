@@ -15,4 +15,5 @@
 - (void)setRightBtnWithTxt:(NSString *)text;
 - (void)doLeftAction:(id)sender;
 - (void)doRightAction:(id)sender;
+- (NSMutableDictionary *)getReadStyle;
 @end

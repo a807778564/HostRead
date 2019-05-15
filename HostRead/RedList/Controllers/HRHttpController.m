@@ -93,6 +93,7 @@
     }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProGress:) name:@"UpLoadingPro" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateEnd:) name:@"UpLoadingProEnd" object:nil];
 }
 
 
@@ -100,6 +101,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self.pro += [center.userInfo[@"progressvalue"] floatValue];
         self.progress.progress = self.pro;
+        NSLog(@" 进度 = %.2f",self.pro);
         if (self.pro >= 0.99) {
             self.pro = 0;
             self.progress.progress = 0;
@@ -107,7 +109,25 @@
     });
 }
 
-- (void) startServer
+
+- (void)updateEnd:(NSNotification *)center{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        do {
+            self.pro += 0.02;
+            self.progress.progress = self.pro;
+        } while (self.pro <= 0.99);
+        
+        NSLog(@" 进度 = %.2f",self.pro);
+        
+        if (self.pro >= 0.99) {
+            self.pro = 0;
+            self.progress.progress = 0;
+        }
+    });
+}
+
+
+- (void)startServer
 {
     NSError *error;
     if ([_httpserver start:&error])

@@ -137,7 +137,7 @@ typedef NS_ENUM(NSInteger){
     }
     self.redChapterCount = [self.txtModel.readChapter integerValue];
     self.redChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
-    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:[self getTopTitle] page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
     dispatch_async(dispatch_queue_create("LoadOtherChapter", NULL), ^{
         if (self.redChapterCount<= [self.txtModel.allChapter integerValue]) {
             self.nextChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount+1 txtId:self.txtModel.txtId];
@@ -146,6 +146,17 @@ typedef NS_ENUM(NSInteger){
             self.upChapter = [self.helper selectChapterModelWithChapterCount:self.redChapterCount-1 txtId:self.txtModel.txtId];
         }
     });
+}
+
+- (NSString *)getTopTitle{
+    if (self.redChapter.title.length > 0) {
+        return self.redChapter.title;
+    }
+    NSArray *arrayTitle = [self.txtModel.txtName componentsSeparatedByString:@"."];
+    if (arrayTitle.count > 0) {
+        return arrayTitle[0];
+    }
+    return self.txtModel.txtName;
 }
 
 - (void)updateContent:(Direction)direction showPage:(HRReadDetailView *)pageView{
@@ -168,7 +179,7 @@ typedef NS_ENUM(NSInteger){
             self.redPage = self.redChapter.pageCount-1;
         }
     }
-    [pageView updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [pageView updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:[self getTopTitle] page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -418,6 +429,17 @@ typedef NS_ENUM(NSInteger){
 }
 
 - (void)doRightAction:(id)sender{
+    
+    [self hiddenSettingView];
+    
+    self.txtModel.readChapter = [NSString stringWithFormat:@"%ld",self.redChapterCount];
+    HRChapterListController *cha = [[HRChapterListController alloc] init];
+//    cha.allChapters = [self.helper selectAllChapter:self.txtModel.txtId page:1];
+    cha.txtModel = self.txtModel;
+    [self.navigationController pushViewController:cha animated:YES];
+}
+
+- (void)hiddenSettingView{
     //隐藏设置界面
     self.isSetting = !self.isSetting;
     self.isGradSetting = YES;
@@ -426,12 +448,6 @@ typedef NS_ENUM(NSInteger){
         make.leading.and.trailing.equalTo(self.view);
         make.top.equalTo(self.view.mas_bottom);
     }];
-    
-    self.txtModel.readChapter = [NSString stringWithFormat:@"%ld",self.redChapterCount];
-    HRChapterListController *cha = [[HRChapterListController alloc] init];
-//    cha.allChapters = [self.helper selectAllChapter:self.txtModel.txtId page:1];
-    cha.txtModel = self.txtModel;
-    [self.navigationController pushViewController:cha animated:YES];
 }
 
 #pragma mark HRDetailSettingViewDelegate
@@ -457,6 +473,7 @@ typedef NS_ENUM(NSInteger){
         UINavigationController  *nav= [[UINavigationController alloc] initWithRootViewController:sett];
         [self presentViewController:nav animated:YES completion:^{
             self.isGradSetting = YES;
+            [self hiddenSettingView];
         }];
     }else if (settingType == SettingTypeLightStyle) {
         [self changeReadModel:RGBA(245, 245, 245, 1) contentColor:RGBA(34, 34, 34, 1)];
@@ -470,7 +487,7 @@ typedef NS_ENUM(NSInteger){
 }
 
 - (void)changeReadModel:(UIColor *)backColor contentColor:(UIColor *)contentColor{
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dic = [self getReadStyle];
     [dic setValue:backColor forKey:@"readBack"];
     [dic setValue:contentColor forKey:@"contentColor"];
      NSData *personEncodedObject = [NSKeyedArchiver archivedDataWithRootObject:dic];
@@ -500,8 +517,8 @@ typedef NS_ENUM(NSInteger){
     self.redPage = 0;
     self.upChapter = self.redChapter;
     self.redChapter =[self.helper selectChapterModelWithChapterCount:self.redChapterCount txtId:self.txtModel.txtId];
-    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
-    [self.readDetailTwo updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [self.readDetailOne updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:[self getTopTitle] page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [self.readDetailTwo updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:[self getTopTitle] page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
 - (void)updateShowTextContent:(HRReadDetailView *)showView{
@@ -512,7 +529,7 @@ typedef NS_ENUM(NSInteger){
     self.readDetailTwo.backgroundColor = [dic valueForKey:@"readBack"];
     self.readDetailTwo.dic = dic;
     self.readDetailOne.dic = dic;
-    [showView updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:self.redChapter.title page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
+    [showView updateContent:[self.redChapter getTextWithPage:self.redPage] conAtt:self.redChapter.attDic title:[self getTopTitle] page:[NSString stringWithFormat:@"%ld/%ld",self.redPage+1,self.redChapter.pageCount]];
 }
 
 

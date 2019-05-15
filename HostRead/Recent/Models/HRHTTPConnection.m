@@ -127,6 +127,7 @@
     {
         [storeFile writeData:data];
         CGFloat progress = (CGFloat)(data.length) / (CGFloat)uploadFileSize;
+        NSLog(@"aaaa 进度 = %.2f",progress);
         NSDictionary *value = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:progress], @"progressvalue",[NSNumber numberWithInteger:data.length], @"cureentvaluelength", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"UpLoadingPro" object:nil userInfo:value];
     }
@@ -137,6 +138,7 @@
     isUploading = NO;
     [storeFile closeFile];
     storeFile = nil;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpLoadingProEnd" object:nil userInfo:nil];
 //    [[NSNotificationCenter defaultCenter] postNotificationName:UPLOADEND object:nil];
 }
 

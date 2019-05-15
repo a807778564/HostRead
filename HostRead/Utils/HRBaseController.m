@@ -23,8 +23,12 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[[[AppDelegate sharedDelegate] colorDic] valueForKey:@"nav_back_color"]] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[[self getReadStyle] valueForKey:@"nav_back_color"]] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[[[AppDelegate sharedDelegate] colorDic] valueForKey:@"nav_title_color"], NSForegroundColorAttributeName, nil]];
+}
+
+- (NSMutableDictionary *)getReadStyle{
+    return [[AppDelegate sharedDelegate] colorDic];
 }
 
 - (void)changeTinColor{

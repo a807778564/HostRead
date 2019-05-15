@@ -34,6 +34,8 @@
         
         NSLog(@"创建文件夹成功，文件路径%@",floderPath);
         [self addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:floderPath]];
+    }else{
+        [[AppDelegate sharedDelegate] showTextOnly:@"文件夹已经存在"];
     }
 }
 
@@ -52,7 +54,6 @@
         }else {
             NSLog(@"dele fail");
         }
-        
     }
 }
 
@@ -111,6 +112,65 @@
     }else{
         NSLog(@"rename fail");
     }
+}
+
+#pragma mark - 清除path文件夹
+- (BOOL)clearAllWithFilePath:(NSString *)path{
+    
+    //拿到path路径的下一级目录的子文件夹
+    NSArray *subPathArr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:nil];
+    
+    NSString *filePath = nil;
+    
+    NSError *error = nil;
+    
+    for (NSString *subPath in subPathArr)
+    {
+        filePath = [path stringByAppendingPathComponent:subPath];
+        NSArray *allFloder = [filePath componentsSeparatedByString:@"/"];
+        NSString *floderName = allFloder[allFloder.count-1];
+        if ([floderName hasSuffix:@".db"]) {
+            
+        }else{
+            if ([floderName hasSuffix:@".txt"]) {
+                
+            }
+//            [[NSFileManager defaultManager] removeItemAtPath:filePath error:&error];
+        }
+        NSLog(@"delete patb = %@",filePath);
+//        [self.helper deleteTxtWithName:self.fileList[indexPath.row-self.floderList.count]];
+        //删除子文件夹
+        
+        if (error) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+//不论是创建还是写入只需调用此段代码即可 如果文件未创建 会进行创建操作
+- (void)writeToFileWithTxt:(NSString *)string{
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        @synchronized (self) {
+            //获取沙盒路径
+            NSArray *paths  = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
+            //获取文件路径
+            NSString *theFilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"测试文本.txt"];
+            //创建文件管理器
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            //如果文件不存在 创建文件
+            if(![fileManager fileExistsAtPath:theFilePath]){
+                NSString *str = @"";
+                [str writeToFile:theFilePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            }
+            NSLog(@"所写内容=%@",string);
+            NSFileHandle *fileHandle = [NSFileHandle fileHandleForUpdatingAtPath:theFilePath];
+            [fileHandle seekToEndOfFile];  //将节点跳到文件的末尾
+            NSData* stringData  = [[NSString stringWithFormat:@"%@\n",string] dataUsingEncoding:NSUTF8StringEncoding];
+            [fileHandle writeData:stringData]; //追加写入数据
+            [fileHandle closeFile];
+        }
+    });
 }
 
 

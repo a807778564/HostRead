@@ -27,6 +27,8 @@
 
 @property (nonatomic, strong) HRReadDetailController *detail;
 
+@property (nonatomic, strong) UIImageView *contentNilImage;
+
 @end
 
 @implementation HRRedListController
@@ -57,6 +59,13 @@
         [self setBackBtn];
     }
     
+    self.contentNilImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nullInfo"]];
+    [self.view addSubview:self.contentNilImage];
+    [self.contentNilImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerY.equalTo(self.view.mas_centerY);
+    }];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showTxtContent:) name:@"HRDidLoadSome" object:nil];
 }
 
@@ -65,6 +74,33 @@
     [self loadFileData];
     self.detail = nil;
 }
+
+- (void)deleteFloder:(NSString *)floderPath{
+    [[HRReadTool shareInstance] getHostFileListWithPath:floderPath fileInfo:^(NSMutableArray *floderList, NSMutableArray *fileList) {
+        if (floderList.count <= 0 && fileList.count <= 0) {
+            [[HRReadTool shareInstance] removeItem:floderPath];
+            [self loadFileData];
+            [self.fileTable reloadData];
+        }else{
+            [[AppDelegate sharedDelegate] showTextOnly:@"当前文件夹下还有内容，请先确认删除！"];
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"警告" message:@"您要删除的文件夹下还有内容，确定全部删除吗？" preferredStyle:UIAlertControllerStyleAlert];
+//            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                [[AppDelegate sharedDelegate] showLoadingHUD:@""];
+//                BOOL success = [[HRReadTool shareInstance] clearAllWithFilePath:self.floderPath];
+//                [[AppDelegate sharedDelegate] hidHUD];
+//                if (success) {
+//                    [self loadFileData];
+//                    [self.fileTable reloadData];
+//                }
+//            }]];
+//            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//            }]];
+//            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
+}
+
 
 - (void)loadFileData{
     NSArray *allFloder = [self.floderPath componentsSeparatedByString:@"/"];
@@ -84,6 +120,11 @@
                     [self.helper deleteTxtWithName:txt.txtName];
                 });
             }
+        }
+        if (self.floderList.count > 0 || self.fileList.count > 0) {
+            self.contentNilImage.hidden = YES;
+        }else{
+            self.contentNilImage.hidden = NO;
         }
         [self.fileTable reloadData];
     }];
@@ -118,7 +159,8 @@
     //添加一个删除按钮
     UITableViewRowAction *deleteRowAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         if (indexPath.row < self.floderList.count) {
-            
+            NSString *floadPath = [NSString stringWithFormat:@"%@/%@",self.floderPath,self.floderList[indexPath.row]];
+            [self deleteFloder:floadPath];
         }else{
             [[AppDelegate sharedDelegate] showLoadingHUD:@""];
             dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -145,10 +187,16 @@
         [self presentViewController:nav animated:YES completion:^{
             
         }];
-        NSLog(@"回调方法");
     }];
     
     return @[deleteRowAction,setDefaultRowAction];
+//    //添加一个密码
+//    UITableViewRowAction *passAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"密码" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+//
+//    }];
+//    passAction.backgroundColor = mainColor;
+//
+//    return @[deleteRowAction,setDefaultRowAction,passAction];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -18,6 +18,9 @@
 @implementation HRTxtChapterModel
 
 - (void)setContent:(NSString *)content{
+    if (!content) {
+        return;
+    }
     _content = content;
     float fontSize = [[NSUserDefaults standardUserDefaults] floatForKey:@"FontSize"];
     NSMutableDictionary * attributes = [NSMutableDictionary dictionaryWithCapacity:fontSize];
@@ -118,7 +121,8 @@
         while (range.length > 0 ){
             i++;
             pageText1 = [contentString substringWithRange:range];
-            if ([[pageText1 substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"\n"]) {
+            if ([[pageText1 substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"\n"] ||
+                [[pageText1 substringWithRange:NSMakeRange(0, 2)] isEqualToString:@"\r\n"]) {
                 contentString = [contentString stringByReplacingCharactersInRange:NSMakeRange(range.location, 1) withString:@"."];
                 _content = [_content stringByReplacingCharactersInRange:NSMakeRange(range.location, 1) withString:@"."];
                 pageText1 = [contentString substringWithRange:range];

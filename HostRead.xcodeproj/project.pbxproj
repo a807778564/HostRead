@@ -72,13 +72,13 @@
 		2C7A08BD1D6ACBA30027B1B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C7A08BC1D6ACBA30027B1B5 /* Assets.xcassets */; };
 		2C7A08C01D6ACBA30027B1B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C7A08BE1D6ACBA30027B1B5 /* LaunchScreen.storyboard */; };
 		2C7A08D41D6ACC2A0027B1B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08D11D6ACC2A0027B1B5 /* AppDelegate.m */; };
-		2C7A08D51D6ACC2A0027B1B5 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C7A08D21D6ACC2A0027B1B5 /* Info.plist */; };
 		2C7A08D61D6ACC2A0027B1B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08D31D6ACC2A0027B1B5 /* main.m */; };
 		2C7A08E11D6ACD380027B1B5 /* HRBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08E01D6ACD380027B1B5 /* HRBaseController.m */; };
 		2C7A08E81D6ACE270027B1B5 /* HRRedListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08E71D6ACE270027B1B5 /* HRRedListController.m */; };
 		2C7A08EB1D6ACE510027B1B5 /* HRSsettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7A08EA1D6ACE510027B1B5 /* HRSsettingController.m */; };
 		2CAB03FF1E77DDAD004D61C7 /* HRTextCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAB03FE1E77DDAD004D61C7 /* HRTextCollectionCell.m */; };
 		2CEA6B2D1ED3FEBA007E656E /* HRTextSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEA6B2C1ED3FEBA007E656E /* HRTextSettingController.m */; };
+		2CF49B47228BD81A00F95757 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CF49B46228BD81A00F95757 /* Images.xcassets */; };
 		EF8816EF7A86B2B1F34D156E /* libPods-HostRead.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EABB3F6BF4ED449EBBB4CB9A /* libPods-HostRead.a */; };
 /* End PBXBuildFile section */
 
@@ -221,6 +221,7 @@
 		2CAB03FE1E77DDAD004D61C7 /* HRTextCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRTextCollectionCell.m; sourceTree = "<group>"; };
 		2CEA6B2B1ED3FEBA007E656E /* HRTextSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRTextSettingController.h; sourceTree = "<group>"; };
 		2CEA6B2C1ED3FEBA007E656E /* HRTextSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRTextSettingController.m; sourceTree = "<group>"; };
+		2CF49B46228BD81A00F95757 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3C63ADB9E897F2DCFA8BB0DD /* Pods-HostRead.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HostRead.release.xcconfig"; path = "Pods/Target Support Files/Pods-HostRead/Pods-HostRead.release.xcconfig"; sourceTree = "<group>"; };
 		EABB3F6BF4ED449EBBB4CB9A /* libPods-HostRead.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HostRead.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -537,6 +538,7 @@
 				2C7A08BC1D6ACBA30027B1B5 /* Assets.xcassets */,
 				2C7A08BE1D6ACBA30027B1B5 /* LaunchScreen.storyboard */,
 				2C41AAE01D6EF4D7007CE67E /* FrameWork */,
+				2CF49B46228BD81A00F95757 /* Images.xcassets */,
 				2C7A08CF1D6ACC2A0027B1B5 /* Supporting Files */,
 			);
 			path = HostRead;
@@ -671,7 +673,6 @@
 				2C7A08A91D6ACBA30027B1B5 /* Sources */,
 				2C7A08AA1D6ACBA30027B1B5 /* Frameworks */,
 				2C7A08AB1D6ACBA30027B1B5 /* Resources */,
-				F4A0CC2E32BEDB6BF8440F23 /* [CP] Embed Pods Frameworks */,
 				17A02ADBE42ACAF8A9DAFB21 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -723,7 +724,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C44FC101D7FEDC90042CE34 /* WebSite in Resources */,
-				2C7A08D51D6ACC2A0027B1B5 /* Info.plist in Resources */,
+				2CF49B47228BD81A00F95757 /* Images.xcassets in Resources */,
 				2C7A08C01D6ACBA30027B1B5 /* LaunchScreen.storyboard in Resources */,
 				2C7A08BD1D6ACBA30027B1B5 /* Assets.xcassets in Resources */,
 				2C7A08BB1D6ACBA30027B1B5 /* Main.storyboard in Resources */,
@@ -739,13 +740,18 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HostRead/Pods-HostRead-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyBoardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IQKeyboardManager.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HostRead/Pods-HostRead-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HostRead/Pods-HostRead-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EAE8482490C88BCB54FC0580 /* [CP] Check Pods Manifest.lock */ = {
@@ -754,28 +760,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-HostRead-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		F4A0CC2E32BEDB6BF8440F23 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-HostRead/Pods-HostRead-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -961,6 +955,7 @@
 			baseConfigurationReference = 0CF975A27034AFCE17BCA35A /* Pods-HostRead.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 仁盛 黄 (T2CD29W6FP)";
 				DEVELOPMENT_TEAM = 784U2EBW65;
 				GCC_PREFIX_HEADER = "HostRead/Supporting Files/HostRead_Prefix.pch";
@@ -971,6 +966,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "692e6367-a3e5-45fb-be83-935ccdb5cde2";
 				PROVISIONING_PROFILE_SPECIFIER = DevForHomedo;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -979,6 +975,7 @@
 			baseConfigurationReference = 3C63ADB9E897F2DCFA8BB0DD /* Pods-HostRead.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = 784U2EBW65;
 				GCC_PREFIX_HEADER = "HostRead/Supporting Files/HostRead_Prefix.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/HostRead/Supporting Files/Info.plist";
@@ -988,6 +985,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "43014c46-3144-4db9-b03b-d667fcedd188";
 				PROVISIONING_PROFILE_SPECIFIER = DevForHomedo;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

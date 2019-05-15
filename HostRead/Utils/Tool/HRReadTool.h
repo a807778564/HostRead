@@ -20,6 +20,10 @@ typedef void(^HostFileList)(NSMutableArray *floderList, NSMutableArray *fileList
 
 + (instancetype)shareInstance;
 
+- (BOOL)clearAllWithFilePath:(NSString *)path;
+
+- (void)writeToFileWithTxt:(NSString *)string;
+
 - (void)creatFileFolder:(NSString *)floderPath;
 
 - (void)removeItem:(NSString *)itemPath;
