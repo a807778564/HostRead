@@ -14,6 +14,7 @@
 #import "HRDecTxtTool.h"
 #import "HRTxtModel.h"
 #import "HRHttpController.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 @interface HRRedListController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,6 +29,8 @@
 @property (nonatomic, strong) HRReadDetailController *detail;
 
 @property (nonatomic, strong) UIImageView *contentNilImage;
+
+@property (nonatomic, strong) GADBannerView *bannerView;
 
 @end
 
@@ -51,13 +54,28 @@
     self.fileTable.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.fileTable];
     [self.fileTable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+//        make.edges.equalTo(self.view);
+        make.leading.trailing.and.top.equalTo(self.view);
     }];
     if (!self.floderPath) {
         self.floderPath = documentPath;
     }else{
         [self setBackBtn];
     }
+    
+    self.bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    self.bannerView.adUnitID = @"ca-app-pub-3940256099942544/2934735716";
+    self.bannerView.rootViewController = self;
+    GADRequest *request = [[GADRequest alloc] init];
+    request.testDevices = @[@"ios_s"];
+    [self.bannerView loadRequest:[GADRequest request]];
+    [self.view addSubview:self.bannerView];
+    [self.bannerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.leading.trailing.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom);
+        make.height.offset(44);
+        make.top.equalTo(self.fileTable.mas_bottom);
+    }];
     
     self.contentNilImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nullInfo"]];
     [self.view addSubview:self.contentNilImage];
@@ -237,13 +255,17 @@
                     self.detail = [[HRReadDetailController alloc] init];
                     self.detail.hidesBottomBarWhenPushed = YES;
                     self.detail.txtModel = model;
-                    [self.navigationController pushViewController:self.detail animated:YES];
+                    if (![self.navigationController.childViewControllers containsObject:self.detail]) {
+                        [self.navigationController pushViewController:self.detail animated:YES];
+                    }
                     [[AppDelegate sharedDelegate] hidHUD];
                     return;
                 }
                 self.detail.txtModel  = model;
                 [[AppDelegate sharedDelegate] hidHUD];
-                [self.navigationController pushViewController:self.detail animated:YES];
+                if (![self.navigationController.childViewControllers containsObject:self.detail]) {
+                    [self.navigationController pushViewController:self.detail animated:YES];
+                }
             });
         });
         

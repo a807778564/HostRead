@@ -12,6 +12,7 @@ pod 'IQKeyboardManager', '~> 3.3.4'
 pod 'SDWebImage', '~> 3.7.3'
 pod 'Masonry', '~> 0.6.3'
 pod 'FMDB', '~> 2.5'
+pod 'Google-Mobile-Ads-SDK'
 end
 
 target ‘HostRead’ do

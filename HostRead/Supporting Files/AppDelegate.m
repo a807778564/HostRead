@@ -11,6 +11,7 @@
 #import "HRSsettingController.h"
 #import "HRRecentController.h"
 #import "HRTouchPassWordController.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
 #define tabCount 3
 
@@ -41,6 +42,7 @@
     }else{
         
     }
+    [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    UITabBarController *rootController = [self createViewControllers];
     HRRedListController *list = [[HRRedListController alloc] init];

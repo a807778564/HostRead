@@ -10,8 +10,9 @@
 #import "HTTPServer.h"
 #import "HRHTTPConnection.h"
 #import "HRProGressView.h"
+#import <GoogleMobileAds/GoogleMobileAds.h>
 
-@interface HRHttpController ()
+@interface HRHttpController ()<GADInterstitialDelegate>
 
 @property (nonatomic, strong) HTTPServer *httpserver;
 
@@ -20,6 +21,8 @@
 @property (nonatomic, strong) UIProgressView *progress;
 
 @property (nonatomic, assign) float pro;
+
+@property(nonatomic, strong) GADInterstitial *interstitial;
 
 @end
 
@@ -94,6 +97,20 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProGress:) name:@"UpLoadingPro" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateEnd:) name:@"UpLoadingProEnd" object:nil];
+    
+    self.interstitial = [self createAndLoadInterstitial];
+}
+
+- (GADInterstitial *)createAndLoadInterstitial {
+    GADInterstitial *interstitial =
+    [[GADInterstitial alloc] initWithAdUnitID:@"ca-app-pub-3940256099942544/4411468910"];
+    interstitial.delegate = self;
+    [interstitial loadRequest:[GADRequest request]];
+    return interstitial;
+}
+
+- (void)interstitialDidDismissScreen:(GADInterstitial *)interstitial {
+    self.interstitial = [self createAndLoadInterstitial];
 }
 
 
@@ -122,6 +139,13 @@
         if (self.pro >= 0.99) {
             self.pro = 0;
             self.progress.progress = 0;
+        }
+        
+        NSInteger txtSize = [center.userInfo[@"txtSize"] integerValue];
+        if (txtSize > 5) {
+            if (self.interstitial.isReady) {
+                [self.interstitial presentFromRootViewController:self];
+            }
         }
     });
 }

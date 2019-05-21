@@ -12,6 +12,10 @@
 #import "MultipartMessageHeaderField.h"
 #import "HTTPDynamicFileResponse.h"
 
+@interface HRHTTPConnection ()
+@property (nonatomic , assign) NSInteger dataLength;
+@end
+
 @implementation HRHTTPConnection
 
 - (void) die
@@ -126,6 +130,7 @@
     if (storeFile)
     {
         [storeFile writeData:data];
+        self.dataLength += data.length;
         CGFloat progress = (CGFloat)(data.length) / (CGFloat)uploadFileSize;
         NSLog(@"aaaa 进度 = %.2f",progress);
         NSDictionary *value = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:progress], @"progressvalue",[NSNumber numberWithInteger:data.length], @"cureentvaluelength", nil];
@@ -138,7 +143,9 @@
     isUploading = NO;
     [storeFile closeFile];
     storeFile = nil;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpLoadingProEnd" object:nil userInfo:nil];
+//    NSLog(@"文明大小 %.2f M",self.dataLength/1000.0f/1000);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpLoadingProEnd" object:nil userInfo:@{@"txtSize":@(self.dataLength/1000.0f/1000)}];
+    self.dataLength = 0;
 //    [[NSNotificationCenter defaultCenter] postNotificationName:UPLOADEND object:nil];
 }
 
