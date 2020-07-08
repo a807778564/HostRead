@@ -17,13 +17,13 @@
                 <key>metadata</key>
                 <dict>
                     <key>bundle-identifier</key>
-                    <string>com.zyl.jyqk</string>
+                    <string>com.laber.mjqwl</string>
                     <key>bundle-version</key>
-                    <string>1.0.0</string>
+                    <string>1.1.3</string>
                     <key>kind</key>
                     <string>software</string>
                     <key>title</key>
-                    <string>剑雨乾坤</string>
+                    <string>修道怪谈</string>
                 </dict>
             </dict>
         </array>
