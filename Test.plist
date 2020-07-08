@@ -17,13 +17,13 @@
                 <key>metadata</key>
                 <dict>
                     <key>bundle-identifier</key>
-                    <string>com.www.m2m</string>
+                    <string>com.zyl.jyqk</string>
                     <key>bundle-version</key>
                     <string>1.0.0</string>
                     <key>kind</key>
                     <string>software</string>
                     <key>title</key>
-                    <string>测试包</string>
+                    <string>剑雨乾坤</string>
                 </dict>
             </dict>
         </array>
